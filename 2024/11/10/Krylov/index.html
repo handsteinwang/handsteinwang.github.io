@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Krylov Subspace and GMRES Algorithm - Handstein Wang</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Handstein Wang"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Handstein Wang"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="In recent years, many fields have involved the problem of solving large-scale sparse systems of equations. When the problem size is extremely large, solving them becomes very difficult. Fortunately, K"><meta property="og:type" content="blog"><meta property="og:title" content="Krylov Subspace and GMRES Algorithm"><meta property="og:url" content="https://handsteinwang.github.io/2024/11/10/Krylov/"><meta property="og:site_name" content="Handstein Wang"><meta property="og:description" content="In recent years, many fields have involved the problem of solving large-scale sparse systems of equations. When the problem size is extremely large, solving them becomes very difficult. Fortunately, K"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_4.4qrvj8s9mg.webp"><meta property="article:published_time" content="2024-11-09T16:00:00.000Z"><meta property="article:modified_time" content="2024-11-09T16:00:00.000Z"><meta property="article:author" content="Handstein Wang"><meta property="article:tag" content="Numerical Linear Algebra"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_4.4qrvj8s9mg.webp"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://handsteinwang.github.io/2024/11/10/Krylov/"},"headline":"Krylov Subspace and GMRES Algorithm","image":["https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_4.4qrvj8s9mg.webp"],"datePublished":"2024-11-09T16:00:00.000Z","dateModified":"2024-11-09T16:00:00.000Z","author":{"@type":"Person","name":"Handstein Wang"},"publisher":{"@type":"Organization","name":"Handstein Wang","logo":{"@type":"ImageObject","url":"https://handsteinwang.github.io/images/hw.svg"}},"description":"In recent years, many fields have involved the problem of solving large-scale sparse systems of equations. When the problem size is extremely large, solving them becomes very difficult. Fortunately, K"}</script><link rel="canonical" href="https://handsteinwang.github.io/2024/11/10/Krylov/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="https://handsteinwang.github.io/readinglist.html">Reading List</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_4.4qrvj8s9mg.webp" alt="Krylov Subspace and GMRES Algorithm"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-11-09T16:00:00.000Z" title="2024/11/10 00:00:00">2024-11-10</time></span><span class="level-item"><a class="link-muted" href="/categories/Numerical-Linear-Algebra/">Numerical Linear Algebra</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Krylov Subspace and GMRES Algorithm</h1><div class="content"><p>In recent years, many fields have involved the problem of solving <strong>large-scale sparse systems of equations</strong>. When the problem size is extremely large, solving them becomes very difficult. Fortunately, Krylov subspace methods can handle such problems very well, and thus they have also been rated as one of the ten greatest algorithms of the 20th century. In this article, we will introduce the basic idea of the <strong>Krylov subspace</strong> and the famous <strong>GMRES algorithm (Generalized Minimal Residual Method)</strong>.</p>
+<span id="more"></span>    
+
+<p>In this article, we will mainly consider the following linear system problem:</p>
+<p>$$<br>Ax = b,<br>$$</p>
+<p>where $A\in \mathbb{R}^{n\times n},\ b\in \mathbb{R}^n$, and $A$ is invertible, with $n$ being large (for example, $n\approx 10^8$).</p>
+<p>The main idea of the GMRES method is to transform the above $n$-dimensional linear system problem into a relatively small $m$-dimensional least-squares problem through the Krylov subspace. To this end, we first introduce the basic idea of the Krylov subspace.</p>
+<h2 id="Krylov-Subspace"><a href="#Krylov-Subspace" class="headerlink" title="Krylov Subspace"></a>Krylov Subspace</h2><p>Before introducing the Krylov subspace, let us first recall the Cayley-Hamilton theorem and the definition of the minimal polynomial.</p>
+<p><strong>Theorem 1 (Cayley-Hamilton Theorem)</strong> Let $f(x)$ be the characteristic polynomial of the matrix $A\in \mathbb{R}^{n\times n}$. Then $f(A)=O$.</p>
+<p>The Cayley-Hamilton theorem tells us that any square matrix satisfies its own characteristic polynomial.</p>
+<p><strong>Definition 1 (Minimal Polynomial)</strong> We call the monic polynomial $\mu(x)$ of smallest degree satisfied by the matrix $A\in \mathbb{R}^{n\times n}$ the minimal polynomial of $A$.</p>
+<p>If you have studied linear algebra, you will certainly know the following two results:</p>
+<p><strong>Proposition 1</strong>: Let $f(x)$ be the characteristic polynomial of the matrix $A\in \mathbb{R}^{n\times n}$, and let $\mu(x)$ be the minimal polynomial of $A$. Then $\mu(x)\mid f(x)$, and hence $\operatorname{deg}\mu(x)\le n$.</p>
+<p><strong>Proposition 2</strong>: Let $\mu(x)$ be the minimal polynomial of the matrix $A\in \mathbb{R}^{n\times n}$. Then $A$ is invertible if and only if the constant term of $\mu(x)$ is nonzero, that is, $\mu(0)\neq 0$.</p>
+<p><strong>Proof:</strong> The proofs of these two propositions are trivial.</p>
+<p>Assume $\operatorname{deg}\mu(x)=p$. For the linear system $Ax=b$, suppose we first have an estimate $x_0$ of the solution, let $r_0=b-Ax_0$, and write $x=x_0+x_m$. Then</p>
+<p>$$<br>Ax=b\iff A(x_0+x_m)=b\iff Ax_m=r_0<br>$$</p>
+<p>Now let us observe what properties $x_m$ has.</p>
+<p>Let $\mu(x) = x^p+c_{p-1}x^{p-1}+\cdots+c_1x+c_0$. By Proposition 2 and the invertibility of $A$, we know that $c_0\neq 0$. By the definition of the minimal polynomial, we know that</p>
+<p>$$<br>\mu(A) = A^p+c_{p-1}A^{p-1}+\cdots+c_1A+c_0I=O.<br>$$</p>
+<p>Therefore,</p>
+<p>$$<br>\begin{aligned}<br>0&amp;=A^px_m+c_{p-1}A^{p-1}x_m+\cdots+c_1Ax_m+c_0x_m\\\<br>&amp;=A^{p-1}r_0+c_{p-1}A^{p-2}r_0+\cdots+c_1r_0+c_0x_m<br>\end{aligned}<br>$$</p>
+<p>Hence,</p>
+<p>$$<br>x_m = -\frac{1}{c_0}A^{p-1}r_0-\frac{c_{p-1}}{c_{0}}A^{p-2}r_0+\cdots-\frac{c_1}{c_0}r_0\quad(1)<br>$$</p>
+<p>Thus, we see that $x_m\in \operatorname{span}\{r_0,Ar_0,\cdots,A^{p-1}r_0\}$. This leads us to the definition of the Krylov subspace:</p>
+<p><strong>Definition 2 (Krylov Subspace)</strong> For a positive integer $m$ and $A\in \mathbb{R}^{n\times n},\ r_0\in \mathbb{R}^n$, define</p>
+<p>$$<br>K_m(A,r_0) =\operatorname{span}\{r_0,Ar_0,\cdots,A^{m-1}r_0\},<br>$$</p>
+<p>which is called the Krylov subspace.</p>
+<p>From the definition of the Krylov subspace, it is not difficult to see the following fact:</p>
+<p>$$<br>K_1(A,r_0)\subseteq K_2(A,r_0)\subseteq\cdots\subseteq K_m(A,r_0)\subseteq K_{m+1}(A,r_0)\subseteq\cdots<br>$$</p>
+<p>So, as $m$ increases, will the dimension of the Krylov subspace keep increasing? The answer is no. Using the definition of the minimal polynomial, it is not hard to obtain the result:</p>
+<p><strong>Proposition 3</strong>: If $\operatorname{deg}\mu(x)=p$, then</p>
+<p>$$<br>K_p(A,r_0) =K_{p+1}(A,r_0)=K_{p+2}(A,r_0)=\cdots<br>$$</p>
+<p><strong>Proof</strong>: Since the minimal polynomial is the monic polynomial satisfied by $A$, $A^p$ can be expressed linearly in terms of $A^{p-1},\cdots,A,I$. Therefore, $A^pr_0$ can be expressed linearly in terms of $A^{p-1}r_0,\cdots,Ar_0,r_0$, and hence $K_p(A,r_0) =K_{p+1}(A,r_0)$. Similarly, we have $K_p(A,r_0)=K_{p+1}(A,r_0)=K_{p+2}(A,r_0)=\cdots$.</p>
+<p><strong>Definition 3</strong>: For given $A\in \mathbb{R}^{n\times n},\ r_0\in \mathbb{R}^n$, we call</p>
+<p>$$<br>m = \min\{s\in\mathbb{N}\ |\  K_s(A,r_0)=K_{s+1}(A,r_0)\}<br>$$</p>
+<p>the degree of $r_0$ with respect to $A$.</p>
+<p><strong>Remark 1:</strong> According to the definition of $m$, it is not difficult for the reader to prove that $m=\dim K_m(A,r_0)$.</p>
+<p>Since we want to transform the $n$-dimensional linear system problem into a relatively small-scale problem through the Krylov subspace, we hope that the above positive integer $m$ is as small as possible. Then is the degree $p$ of the minimal polynomial exactly $m$? The answer is clearly no, because when $r_0=0$, $p$ is obviously not the smallest positive integer. However, we have the following result:</p>
+<p><strong>Proposition 4</strong>: Let $m$ be the degree of $r_0$ with respect to $A$. Then $m$ is the degree corresponding to the nonzero polynomial $g(x)$ of smallest degree such that $g(A)v=0$, namely,</p>
+<p>$$<br>m = \min\{\operatorname{deg}g(x)|\ g(x)\neq 0\ \text{and}\ g(A)v=0\}<br>$$</p>
+<p><strong>Proof:</strong> Let</p>
+<p>$$<br>\tau=\min\{\operatorname{deg}g(x)|\ g(x)\neq 0\ \text{and}\ g(A)v=0\}.<br>$$</p>
+<p>On the one hand, since $m$ is the degree of $r_0$ with respect to $A$, we have</p>
+<p>$$<br>K_m(A,r_0) =K_{m+1}(A,r_0)\iff \operatorname{span}\{r_0,Ar_0,\cdots,A^{m-1}r_0\}=\operatorname{span}\{r_0,Ar_0,\cdots,A^{m-1}r_0,A^mr_0\}.<br>$$</p>
+<p>Therefore, $A^mr_0$ can be expressed linearly in terms of $r_0,Ar_0,\cdots,A^{m-1}r_0$, that is, there exist $c_0,\cdots,c_{m-1}$ such that</p>
+<p>$$<br>A^mr_0 = c_0r_0+\cdots+c_{m-1}A^{m-1}r_0.<br>$$</p>
+<p>Let $g(x) = x^m-c_{m-1}x^{m-1}-\cdots-c_0$. Then $g(A)r_0=0$, and by the definition of $\tau$, we know that $\tau\le m$.</p>
+<p>On the other hand, by the definition of $\tau$, there exists a monic polynomial $h$ such that $\operatorname{deg}h(x)=\tau$ and $h(A)r_0=0$. Let</p>
+<p>$$<br>h(x) = x^\tau+d_{\tau-1}x^{\tau-1}+\cdots+d_0,<br>$$</p>
+<p>then</p>
+<p>$$<br>A^\tau r_0 = -d_{\tau-1}A^{\tau-1}r_0-\cdots-d_0r_0\in K_\tau(A,r_0).<br>$$</p>
+<p>Hence $K_\tau(A,r_0) =K_{\tau+1}(A,r_0)$, and by the definition of $m$, we have $m\le \tau$. Combining the above, we obtain $m=\tau$.</p>
+<h2 id="GMRES-Algorithm"><a href="#GMRES-Algorithm" class="headerlink" title="GMRES Algorithm"></a>GMRES Algorithm</h2><p>From the above analysis and equation $(1)$, we find that</p>
+<p>$$<br>x_m\in K_p(A,r_0) = K_m(A,r_0)<br>$$</p>
+<p>where $p$ is the degree of the minimal polynomial of $A$, and $m$ is the degree of $r_0$ with respect to $A$. Therefore, we can transform the problem of solving the linear system into the following optimization problem:</p>
+<p>$$<br>\min_{x_m\in K_m(A,r_0)} \lVert A(x_0+x_m)-b\rVert_2<br>$$</p>
+<p>This still looks like a large-scale $n$-dimensional problem. How should we reduce the dimension?</p>
+<p>In fact, since $\dim K_m(A,r_0)=m$, we can apply Gram-Schmidt orthogonalization to the basis $\{r_0,Ar_0,\cdots,A^{m-1}r_0\}$ of $K_m(A,r_0)$, that is,</p>
+<p>$$<br>\begin{aligned}<br>w_1=r_0,\quad v_1 = w_1/\lVert w_1\rVert_2;\\\<br>w_2 = Ar_0-(Ar_0,v_1)v_1,\quad v_2=w_2/\lVert w_2\rVert_2;\\\<br>\cdots\\\<br>w_m = A^{m-1}r_0-\sum_{k=1}^{m-1}(A^{m-1},v_k)v_k,\quad v_m = w_m/\lVert w_m\rVert_2.<br>\end{aligned}<br>$$</p>
+<p>However, in practice, we do not know the value of $m$, and thus the Arnoldi algorithm arises.</p>
+<p><strong>Algorithm 1 (Arnoldi Algorithm)</strong></p>
+<ul>
+<li><p><strong>Step 1:</strong> Choose a vector $v_1$ such that $\lVert v_1\rVert_2=1$; pre-set a sufficiently large maximum number of iterations <code>max_iteration</code>.</p>
+</li>
+<li><p><strong>Step 2:</strong> For $j=1,2,\cdots,$ max_iteration, do:</p>
+<ul>
+<li><p>Compute $h_{ij} = (Av_j,v_i)$, $i=1,2,\cdots,j$;</p>
+</li>
+<li><p>Compute $w_j = Av_j-\sum\limits_{i=1}^j h_{ij}v_i$;</p>
+</li>
+<li><p>Compute $h_{j+1,j} = \lVert w_j\rVert_2$;</p>
+</li>
+<li><p>If $h_{j+1,j}=0$, then terminate the algorithm.</p>
+</li>
+</ul>
+<p>End Do</p>
+</li>
+</ul>
+<p>From the iterative process of the Arnoldi algorithm, it is not difficult to see that the algorithm terminates exactly at step $m$, and</p>
+<p>$$<br>A(v_1,v_2,\cdots,v_m) = (v_1,v_2,\cdots,v_{m+1})\begin{pmatrix}<br>h_{11}&amp;h_{12}&amp;h_{13}&amp;\cdots&amp;h_{1,m-1}&amp;h_{1m}\\\<br>h_{21}&amp;h_{22}&amp;h_{23}&amp;\cdots&amp;h_{2,m-1}&amp;h_{2m}\\\<br>&amp;h_{32}&amp;h_{33}&amp;\cdots&amp;h_{3,m-1}&amp;h_{3m}\\\<br>&amp;&amp;h_{43}&amp;\cdots&amp;h_{4,m-1}&amp;h_{4m}\\\<br>&amp;&amp;&amp;\ddots&amp;\vdots&amp;\vdots\\\<br>&amp;&amp;&amp;&amp;h_{m,m-1}&amp;h_{mm}\\\<br>&amp;&amp;&amp;&amp;&amp;h_{m+1,m}<br>\end{pmatrix}<br>$$</p>
+<p>Let $V_m = (v_1,v_2,\cdots,v_m)$ be the orthonormal basis of $K_m(A,r_0)$, and let $H_m$ be the $(m+1)\times m$ matrix on the right-hand side. Then</p>
+<p>$$<br>AV_m = V_{m+1}H_m\quad (2)<br>$$</p>
+<p>For $r_0 = b-Ax_0$, let $\beta = \lVert r_0\rVert_2$, take $v_1 = r_0/\beta$, and let $e_1=(1,0,\cdots,0)^T$. Substitute $v_1$ into the Arnoldi algorithm to obtain $V_m$ iteratively. Then, since $x_m\in K_m(A,r_0)$, there exists $y\in \mathbb{R}^m$ such that $x_m=V_my$. In addition, $r_0=\beta v_1 = \beta V_m e_1$. Hence</p>
+<p>$$<br>\begin{aligned}<br>\lVert Ax-b\rVert_2&amp;=\lVert A(x_0+x_m)-b\rVert_2\\\<br>&amp;=\lVert A(x_0+V_my)-b\rVert_2\\\<br>&amp;=\lVert AV_my-r_0\rVert_2\\\<br>&amp;=\lVert V_{m+1}H_my-r_0\rVert_2\\\<br>&amp;=\lVert V_{m+1}(H_my-\beta e_1)\rVert_2\\\<br>&amp;=\lVert H_my-\beta e_1\rVert_2<br>\end{aligned}<br>$$</p>
+<p>In summary, we have transformed the problem of solving the $n$-dimensional linear system $Ax=b$ into solving the least-squares problem for the $(m+1)\times m$ matrix</p>
+<p>$$<br>\min_{y\in\mathbb{R}^m}\lVert H_my-\beta e_1\rVert_2<br>$$</p>
+<p>thus achieving dimensionality reduction.</p>
+<p>Summarizing the above process, we obtain the GMRES algorithm.</p>
+<p><strong>Algorithm 2 (GMRES)</strong></p>
+<ul>
+<li><p><strong>Step 1:</strong> Compute $r_0=b-Ax_0,\beta = \lVert r_0\rVert_2,v_1=r_0/\beta$, and pre-set a sufficiently large maximum number of iterations <code>max_iteration</code>;</p>
+</li>
+<li><p><strong>Step 2:</strong> For $j=1,2,\cdots,$ max_iteration, do:</p>
+<ul>
+<li>Compute $w_j=Av_j$;</li>
+<li>For $i=1,2,\cdots,j$, compute $h_{ij}=(w_j,v_i)$ and $w_j= w_j-\sum\limits_{i=1}^j h_{ij}v_i$;</li>
+<li>Compute $h_{j+1,j} = \lVert w_j\rVert_2$;</li>
+<li>If $h_{j+1,j}=0$, then let $m=j$, and go to Step 3;<br>End Do</li>
+</ul>
+</li>
+<li><p><strong>Step 3:</strong> $H_m = \{h_{ij}\}_{1\le i\le m,1\le j\le m}$;</p>
+</li>
+<li><p><strong>Step 4:</strong> Solve the least-squares problem</p>
+</li>
+</ul>
+<p>$$<br>y_m =\operatorname{arg}\min\limits_{y\in\mathbb{R}^m}\lVert H_my-\beta e_1\rVert_2<br>$$</p>
+<p>and compute</p>
+<p>$$<br>x = x_0+H_my_m.<br>$$</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Krylov Subspace and GMRES Algorithm</p><p><a href="https://handsteinwang.github.io/2024/11/10/Krylov/">https://handsteinwang.github.io/2024/11/10/Krylov/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Handstein Wang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-11-10</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-11-10</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Numerical-Linear-Algebra/">Numerical Linear Algebra</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/12/02/Probability-Measure-on-the-Path-Space/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Probability Measure on the Path Space</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/11/09/Bernstein-Polynomial-and-Weierstrass-Approximation-Theorem/"><span class="level-item">Bernstein Polynomial and Weierstrass Approximation Theorem</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/quokka.8vngnfovwa.webp" alt="Handstein Wang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Handstein Wang</p><p class="is-size-6 is-block">Be friends with time.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Australia</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">19</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">15</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">21</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="mailto:wangtuo1020@outlook.com" target="_blank" rel="me noopener">Contact Me</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Email" href="mailto:wangtuo1020@outlook.com"><i class="fas fa-envelope"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://handsteinwang.github.io/readinglist.html" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Reading List</span></span><span class="level-right"><span class="level-item tag">handsteinwang.github.io</span></span></a></li><li><a class="level is-mobile" href="https://overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Overleaf</span></span><span class="level-right"><span class="level-item tag">overleaf.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Approximation-Theory/"><span class="level-start"><span class="level-item">Approximation Theory</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Calculus-of-Variations/"><span class="level-start"><span class="level-item">Calculus of Variations</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Functional-Analysis/"><span class="level-start"><span class="level-item">Functional Analysis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Modeling/"><span class="level-start"><span class="level-item">Generative Modeling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Gradient-Flows/"><span class="level-start"><span class="level-item">Gradient Flows</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Investment/"><span class="level-start"><span class="level-item">Investment</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Lie-Algebra/"><span class="level-start"><span class="level-item">Lie Algebra</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Markov-Chain/"><span class="level-start"><span class="level-item">Markov Chain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Mean-Field-Langevin-Dynamics/"><span class="level-start"><span class="level-item">Mean-Field Langevin Dynamics</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Numerical-Linear-Algebra/"><span class="level-start"><span class="level-item">Numerical Linear Algebra</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimal-Transport/"><span class="level-start"><span class="level-item">Optimal Transport</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimization-over-the-Space-of-Probability-Measures/"><span class="level-start"><span class="level-item">Optimization over the Space of Probability Measures</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Probability-Theory/"><span class="level-start"><span class="level-item">Probability Theory</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Sampling/"><span class="level-start"><span class="level-item">Sampling</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Trends/"><span class="level-start"><span class="level-item">Trends</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-03-01T16:00:00.000Z">2026-03-02</time></p><p class="title"><a href="/2026/03/02/Absolutely-Continuous-Curves-and-Metric-Derivative/">Absolutely Continuous Curves and Metric Derivative</a></p><p class="categories"><a href="/categories/Gradient-Flows/">Gradient Flows</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-27T16:00:00.000Z">2026-02-28</time></p><p class="title"><a href="/2026/02/28/Representations-and-Modules-of-Lie-Algebra/">Representations and Modules of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-24T16:00:00.000Z">2026-02-25</time></p><p class="title"><a href="/2026/02/25/Introduction-to-Lie-Algebra-Basic-Definitions/">Basic Concepts of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-21T16:00:00.000Z">2026-02-22</time></p><p class="title"><a href="/2026/02/22/Borel_measure_supp/">Borel Measure and its Support</a></p><p class="categories"><a href="/categories/Probability-Theory/">Probability Theory</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-17T16:00:00.000Z">2026-02-18</time></p><p class="title"><a href="/2026/02/18/An-Important-Example-of-Gamma-Convergence/">An Example of Gamma Convergence</a></p><p class="categories"><a href="/categories/Mean-Field-Langevin-Dynamics/">Mean-Field Langevin Dynamics</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/03/"><span class="level-start"><span class="level-item">March 2026</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/02/"><span class="level-start"><span class="level-item">February 2026</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/01/"><span class="level-start"><span class="level-item">January 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">December 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/11/"><span class="level-start"><span class="level-item">November 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/09/"><span class="level-start"><span class="level-item">September 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/01/"><span class="level-start"><span class="level-item">January 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">December 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">November 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Analysis/"><span class="tag">Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Approximation-Theory/"><span class="tag">Approximation Theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Calculus-of-Variations/"><span class="tag">Calculus of Variations</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diffusion-Model/"><span class="tag">Diffusion Model</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finance/"><span class="tag">Finance</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Flow-Matching/"><span class="tag">Flow Matching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Analysis/"><span class="tag">Functional Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Modeling/"><span class="tag">Generative Modeling</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Gradient-Flows/"><span class="tag">Gradient Flows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Investment/"><span class="tag">Investment</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Lie-Algebra/"><span class="tag">Lie Algebra</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mean-Field-Langevin-Dynamics/"><span class="tag">Mean-Field Langevin Dynamics</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numerical-Linear-Algebra/"><span class="tag">Numerical Linear Algebra</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimal-Transport/"><span class="tag">Optimal Transport</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization/"><span class="tag">Optimization</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization-over-the-Space-of-Probability-Measures/"><span class="tag">Optimization over the Space of Probability Measures</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Probability/"><span class="tag">Probability</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Probability-Theory/"><span class="tag">Probability Theory</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Sampling/"><span class="tag">Sampling</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Stochastic-Process/"><span class="tag">Stochastic Process</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Trends/"><span class="tag">Trends</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a><p class="is-size-7"><span>&copy; 2025 Handstein Wang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
