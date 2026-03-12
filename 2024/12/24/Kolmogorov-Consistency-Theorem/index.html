@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Kolmogorov Consistency Theorem - Handstein Wang</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Handstein Wang"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Handstein Wang"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="How can one define a product probability measure on infinitely many probability spaces? That is, given a family of probability spaces $(\Omega_t,\mathcal F_t)$, $t\in T$, suppose that for every nonemp"><meta property="og:type" content="blog"><meta property="og:title" content="Kolmogorov Consistency Theorem"><meta property="og:url" content="https://handsteinwang.github.io/2024/12/24/Kolmogorov-Consistency-Theorem/"><meta property="og:site_name" content="Handstein Wang"><meta property="og:description" content="How can one define a product probability measure on infinitely many probability spaces? That is, given a family of probability spaces $(\Omega_t,\mathcal F_t)$, $t\in T$, suppose that for every nonemp"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_8.icocacu14.webp"><meta property="article:published_time" content="2024-12-23T16:00:00.000Z"><meta property="article:modified_time" content="2024-12-23T16:00:00.000Z"><meta property="article:author" content="Handstein Wang"><meta property="article:tag" content="Probability Theory"><meta property="article:tag" content="Measure Theory"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_8.icocacu14.webp"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://handsteinwang.github.io/2024/12/24/Kolmogorov-Consistency-Theorem/"},"headline":"Kolmogorov Consistency Theorem","image":["https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_8.icocacu14.webp"],"datePublished":"2024-12-23T16:00:00.000Z","dateModified":"2024-12-23T16:00:00.000Z","author":{"@type":"Person","name":"Handstein Wang"},"publisher":{"@type":"Organization","name":"Handstein Wang","logo":{"@type":"ImageObject","url":"https://handsteinwang.github.io/images/hw.svg"}},"description":"How can one define a product probability measure on infinitely many probability spaces? That is, given a family of probability spaces $(\\Omega_t,\\mathcal F_t)$, $t\\in T$, suppose that for every nonemp"}</script><link rel="canonical" href="https://handsteinwang.github.io/2024/12/24/Kolmogorov-Consistency-Theorem/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="https://handsteinwang.github.io/readinglist.html">Reading List</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_8.icocacu14.webp" alt="Kolmogorov Consistency Theorem"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-12-23T16:00:00.000Z" title="2024/12/24 00:00:00">2024-12-24</time></span><span class="level-item"><a class="link-muted" href="/categories/Probability-Theory/">Probability Theory</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Kolmogorov Consistency Theorem</h1><div class="content"><p>How can one define a product probability measure on infinitely many probability spaces? That is, given a family of probability spaces $(\Omega_t,\mathcal F_t)$, $t\in T$, suppose that for every nonempty finite subset $S\subset T$, a probability measure $\mathbb P_S$ has already been defined on $\prod_{t\in S}\mathcal F_t$. Then how can we define a “suitable” probability measure $\mathbb P$ on the product measurable space</p>
+<p>$$<br>\left(\prod_{t\in T}\Omega_t,\prod_{t\in T}\mathcal F_t\right)<br>$$</p>
+<p>such that its marginal distribution measures are exactly $\mathbb P_S$?</p>
+<span id="more"></span>    
+
+<p><strong>Note:</strong> By “suitable”, we mainly mean the following aspects:</p>
+<ul>
+<li><p>Is the probability measure $\mathbb P$, as a mapping, well-defined? That is, if $A,B\in \prod_{t\in T}\mathcal F_t$ and $A=B$, do we have $\mathbb P(A)=\mathbb P(B)$?</p>
+</li>
+<li><p>Does the probability measure $\mathbb P$ exist, and is it unique?</p>
+</li>
+<li><p>Is the probability measure $\mathbb P$ really a measure? Does it satisfy countable additivity?</p>
+</li>
+<li><p>Are the marginal distributions of $\mathbb P$ exactly $\mathbb P_S$? That is, if $A_S\in \prod_{t\in S}\mathcal F_t$, do we have</p>
+</li>
+</ul>
+<p>$$<br>\mathbb P\left(A_S\times \prod_{t\in T\backslash S}\Omega_t\right)=\mathbb P_S(A_S)?<br>$$</p>
+<p><strong>Note:</strong> The reason why there is a well-definedness issue is that the product $\sigma$-algebra has different representations. For example, if $S_1\subset S_2\subset T$, then</p>
+<p>$$<br>A_{S_1}\times \prod_{t\in T\backslash S_1}\Omega_t<br>=<br>\left(A_{S_1}\times \prod_{t\in S_2\backslash S_1}\Omega_t\right)\times \prod_{t\in T\backslash S_2}\Omega_t.<br>$$</p>
+<p>In fact, the <strong>Kolmogorov consistency theorem</strong> gives the answer to the above questions. In order to introduce this result as clearly as possible, we first briefly review some important results and the definition of product probability measures on <strong>finitely many</strong> probability spaces, then consider product probability measures on <strong>countably many</strong> probability spaces, and finally consider the case of <strong>uncountably many</strong> spaces.</p>
+<div align="center">
+  <img src="/images/kolmogorov.jpg" style="zoom:70%; display:block; margin:0 auto;" /><br/>
+  Figure 1: Kolmogorov (Russian: Андре́й Никола́евич Колмого́ров, April 25, 1903 -- October 20, 1987), Russian mathematician, founder of modern probability theory. At one time, people even suspected whether Kolmogorov was a person's name or the name of a research institute.
+</div>
+
+
+
+<h2 id="Review-of-Important-Results"><a href="#Review-of-Important-Results" class="headerlink" title="Review of Important Results"></a>Review of Important Results</h2><p><strong>Definition 1</strong> (Cartesian product)</p>
+<p>Let $\Omega_t$, $t\in T$, be a family of sets, where $T$ is an index set (it may be finite, infinite, or even uncountably infinite). Then their Cartesian product is defined by</p>
+<p>$$<br>\prod_{t\in T}\Omega_t<br>=<br>\left\{\omega:T\to \bigcup_{t\in T}\Omega_t\ ;\  \omega(t)=\omega_t\in \Omega_t\right\}.<br>$$</p>
+<p><strong>Note:</strong> The Cartesian product of finitely many sets used to be defined as</p>
+<p>$$<br>\Omega_1\times \Omega_2<br>=<br>\{(\omega_1,\omega_2)\ ;\  \omega_1\in \Omega_1,\omega_2\in \Omega_2\}.<br>$$</p>
+<p>In fact, each ordered pair $(\omega_1,\omega_2)$ can be regarded as such a mapping:</p>
+<p>$$<br>\omega:\{1,2\}\to \Omega_1\cup \Omega_2<br>$$</p>
+<p>satisfying</p>
+<p>$$<br>\omega(1)=\omega_1\in \Omega_1,\quad \omega(2)=\omega_2\in \Omega_1.<br>$$</p>
+<p>Moreover, although each ordered pair $(\omega_1,\omega_2)$ seems to depend on the order, this order is in fact not essential. Therefore, we may regard each ordered pair as a mapping, view the Cartesian product as the set of such mappings, and extend this to infinitely many sets.</p>
+<p><strong>Definition 2</strong> (Coordinate projection mapping)</p>
+<p>Define the coordinate projection mapping by</p>
+<p>$$<br>\begin{aligned}<br>\pi_t:\prod_{t\in T}\Omega_t&amp;\to \Omega_t\<br>\omega&amp;\mapsto \omega(t)=\omega_t<br>\end{aligned}<br>$$</p>
+<p><strong>Definition 3</strong> (Product $\sigma$-algebra)</p>
+<p>Let $( \Omega_t,\mathcal F_t),\ t\in T$ be a family of measurable spaces. Define the product $\sigma$-algebra on $\prod_{t\in T} \Omega_t$ to be the smallest $\sigma$-algebra making all $\pi_t$ measurable, namely</p>
+<p>$$<br>\prod_{t\in T}\mathcal F_t=\sigma(\pi_t,t\in T),<br>$$</p>
+<p>where $\pi_t$ are the corresponding coordinate projection mappings.</p>
+<p>Regarding the structure of the product $\sigma$-algebra, we have the following very important result.</p>
+<p><strong>Theorem 1</strong> (Structure theorem of the product $\sigma$-algebra)</p>
+<p>$$<br>\prod_{t\in T}\mathcal F_t=\sigma(J_0)=\sigma(Z_0)=\sigma(J)=\sigma(Z)=Z<br>$$</p>
+<p>where</p>
+<p>$$<br>J_0<br>=<br>\bigcup_{S\subset T,\text{ nonempty finite}}<br>\left\{<br>\bigcap_{t\in S}\pi_t^{-1}(A_t)\ ;\ A_t\in \mathcal F_t<br>\right\}<br>=<br>\bigcup_{S\subset T,\text{ nonempty finite}}<br>\left\{<br>\prod_{t\in S}A_t\times \prod_{t\in T\backslash S}\Omega_t\ ;\ A_t\in \mathcal F_t<br>\right\}<br>$$</p>
+<p>is a semialgebra, called the finite-dimensional base measurable rectangles;</p>
+<p>$$<br>Z_0<br>=<br>\bigcup_{S\subset T,\text{ nonempty finite}}\sigma(\pi_t,t\in S)<br>=<br>\bigcup_{S\subset T,\text{ nonempty finite}}<br>\left\{<br>A_S\times \prod_{t\in T\backslash S}\Omega_t\ ;\ A_S\in \prod_{t\in S}\mathcal F_t<br>\right\}<br>$$</p>
+<p>is an algebra, called the finite-dimensional base measurable cylinders;</p>
+<p>$$<br>J<br>=<br>\bigcup_{S\subset T,\text{ nonempty countable}}<br>\left\{<br>\bigcap_{t\in S}\pi_t^{-1}(A_t)\ ;\ A_t\in \mathcal F_t<br>\right\}<br>=<br>\bigcup_{S\subset T,\text{ nonempty countable}}<br>\left\{<br>\prod_{t\in S}A_t\times \prod_{t\in T\backslash S}\Omega_t\ ;\ A_t\in \mathcal F_t<br>\right\}<br>$$</p>
+<p>is a $\pi$-class, called the countable-dimensional base measurable rectangles;</p>
+<p>$$<br>Z_0<br>=<br>\bigcup_{S\subset T,\text{ nonempty countable}}\sigma(\pi_t,t\in S)<br>=<br>\bigcup_{S\subset T,\text{ nonempty countable}}<br>\left\{<br>A_S\times \prod_{t\in T\backslash S}\Omega_t\ ;\ A_S\in \prod_{t\in S}\mathcal F_t<br>\right\}<br>$$</p>
+<p>is a $\sigma$-algebra, called the countable-dimensional base measurable cylinders.</p>
+<p><strong>Note:</strong> The structure theorem of the product $\sigma$-algebra shows that the product of seemingly uncountably many $\sigma$-algebras is actually countably based. Therefore, once we understand the countable case, the uncountable case can be naturally resolved. Moreover, $\prod_{t\in T}\mathcal F_t=\sigma(J_0)=\sigma(Z_0)$ tells us that if we can define a countably additive set function on the relatively simple $J_0$ or $Z_0$, and then extend it to the generated $\sigma$-algebra, then we obtain the probability measure we want. The Carathéodory extension theorem tells us when such an extension can be achieved.</p>
+<p><strong>Theorem 2</strong> (Carathéodory extension theorem)</p>
+<p>Let $\mathcal{C}$ be a semiring on $\Omega$, and let $\mu$ be a countably additive nonnegative set function on $\mathcal{C}$. Then $\mu$ can be extended to a measure on $\sigma(\mathcal{C})$. If, in addition, the following uniqueness condition holds: $\mu$ is $\sigma$-finite on $\mathcal{C}$ and $\Omega\in \mathcal{C}_\sigma$, then the extension is unique.</p>
+<p>Sometimes it is not easy to prove countable additivity of a set function, but it is often easy to know that it is finitely additive and continuous from above at the empty set. We have the following theorem.</p>
+<p><strong>Theorem 3</strong> If $\mu$ is a finite set function on an algebra $\mathcal{E}$, then $\mu$ is countably additive if and only if $\mu$ is finitely additive and continuous from above at the empty set.</p>
+<h2 id="Product-Probability-Measures-on-Finitely-Many-Probability-Spaces"><a href="#Product-Probability-Measures-on-Finitely-Many-Probability-Spaces" class="headerlink" title="Product Probability Measures on Finitely Many Probability Spaces"></a>Product Probability Measures on Finitely Many Probability Spaces</h2><p>Suppose we have probability spaces $(\Omega_1,\mathcal F_1,\mathbb P_1)$ and $(\Omega_2,\mathcal F_2,\mathbb P_2)$. According to the structure theorem of the product $\sigma$-algebra,</p>
+<p>$$<br>\mathcal F_1\times \mathcal F_2=\sigma(J_0)<br>$$</p>
+<p>where</p>
+<p>$$<br>J_0=\{A_1\times A_2\ ;\  A_1\in \mathcal F_1,A_2\in \mathcal F_2\}<br>$$</p>
+<p>is an algebra. Define a nonnegative set function on it by</p>
+<p>$$<br>\mathbb P(A_1\times A_2)=\mathbb P_1(A_1)\mathbb P_2(A_2).<br>$$</p>
+<p>One can prove by means of sections that this is a countably additive nonnegative set function, and clearly the uniqueness condition is satisfied. Therefore, by the Carathéodory extension theorem, we can uniquely extend it to a measure on $\mathcal F_1\times \mathcal F_2=\sigma(J_0)$, and clearly it is a probability measure.</p>
+<p>Therefore, by induction, we can define suitable product probability measures on finitely many probability spaces. Is the countable case equally easy? The answer is negative.</p>
+<h2 id="Product-Probability-Measures-on-Countably-Many-Probability-Spaces"><a href="#Product-Probability-Measures-on-Countably-Many-Probability-Spaces" class="headerlink" title="Product Probability Measures on Countably Many Probability Spaces"></a>Product Probability Measures on Countably Many Probability Spaces</h2><p>The Kolmogorov consistency theorem gives a very good answer to this question. The Kolmogorov consistency theorem has many different forms. In this article, we will introduce a form that the author considers relatively practical, and appreciate its very elegant proof. Before that, we introduce some more basic definitions and conclusions.</p>
+<p><strong>Definition 4</strong> (Polish space) Let $\Omega$ be a Hausdorff space. If there exists a metric $d$ on $\Omega$ compatible with its topology such that $(\Omega,d)$ is a complete separable metric space, then $\Omega$ is called a Polish space.</p>
+<p>We have the following important result.</p>
+<p><strong>Theorem 4</strong> Let $\Omega$ be a Polish space, let $\mathcal{B}(\Omega)$ be its Borel $\sigma$-algebra, and let $\mu$ be a finite measure on $\mathcal{B}(\Omega)$. Then $\mu$ is strongly inner regular, that is, for every $A\in \mathcal{B}(\Omega)$,</p>
+<p>$$<br>\mu(A)=\sup\{\mu(K)\ ;\ K\subset A,K\text{ compact}\}.<br>$$</p>
+<p>With the above preparations, we can now state the Kolmogorov consistency theorem.</p>
+<p><strong>Theorem 5</strong> (Kolmogorov consistency theorem) Let $(\Omega_n,\mathcal F_n)$ be measurable spaces, where each $\Omega_n$ is a Polish space, $\mathcal F_n=\mathcal{B}(\Omega_n)$, and the index set is $n\in T=\mathbb{N}$. If for every nonempty finite subset $S\subset T$, there exists a probability measure $\mathbb P_S$ on $\prod_{n\in S}\mathcal F_n$, and they satisfy the following <strong>consistency condition</strong>: for every nonempty finite $S_1\subset S_2\subset T$, and every</p>
+<p>$$<br>A_{S_1}\in \prod_{n\in S_1}\mathcal F_n<br>\Longrightarrow<br>A_{S_1}\times \prod_{n\in S_2\backslash S_1}\Omega_n\in \prod_{n\in S_2}\mathcal F_n,<br>$$</p>
+<p>we have</p>
+<p>$$<br>\mathbb P_{S_1}(A_{S_1})<br>=<br>\mathbb P_{S_2}\left(A_{S_1}\times \prod_{n\in S_2\backslash S_1}\Omega_n\right).<br>$$</p>
+<p>Then there exists a unique probability measure $\mathbb P$ on $\left(\prod_{n\in T}\Omega_n,\prod_{n\in T}\mathcal F_n\right)$ such that for every $A_S\in \prod_{n\in S}\mathcal F_n$,</p>
+<p>$$<br>\mathbb P\left(A_S\times \prod_{n\in T\backslash S}\Omega_n\right)=\mathbb P_S(A_S).<br>$$</p>
+<p><strong>Proof:</strong> By the structure theorem of the product $\sigma$-algebra,</p>
+<p>$$<br>\prod_{n\in T}\mathcal F_n=\sigma(Z_0).<br>$$</p>
+<p><strong>Step 1</strong>: According to the consistency condition, the set function $\mathbb P$ defined on $Z_0$ by</p>
+<p>$$<br>\mathbb P\left(A_S\times \prod_{n\in T\backslash S}\Omega_n\right)=\mathbb P_S(A_S)<br>$$</p>
+<p>is well-defined.</p>
+<p><strong>Step 2</strong>: The set function $\mathbb P$ defined on $Z_0$ satisfies finite additivity.</p>
+<p>If $B_1,B_2\in Z_0$ and $B_1\cap B_2=\varnothing$, then there exist nonempty finite $S_1,S_2\subset T$ such that</p>
+<p>$$<br>B_1=A_{S_1}\times \prod_{n\in T\backslash S_1}\Omega_n,\quad<br>B_2=A_{S_2}\times \prod_{n\in T\backslash S_2}\Omega_n<br>$$</p>
+<p>where</p>
+<p>$$<br>A_{S_1}\in \prod_{n\in S_1}\mathcal F_n,\quad<br>A_{S_2}\in \prod_{n\in S_2}\mathcal F_n.<br>$$</p>
+<p>Let $S=S_1\cup S_2$, which is clearly nonempty and finite. Then</p>
+<p>$$<br>\begin{aligned}<br>\mathbb P(B_1\uplus B_2)<br>&amp;=\mathbb P\left(\left(\left(A_{S_1}\times \prod_{n\in S\backslash S_1}\Omega_n\right)\biguplus \left(A_{S_2}\times \prod_{n\in S\backslash S_2}\Omega_n\right)\right)\times \prod_{n\in T\backslash S}\Omega_n\right)\\\<br>&amp;=\mathbb P_S\left(\left(A_{S_1}\times \prod_{n\in S\backslash S_1}\Omega_n\right)\biguplus \left(A_{S_2}\times \prod_{n\in S\backslash S_2}\Omega_n\right)\right)\\\<br>&amp;=\mathbb P_S\left(A_{S_1}\times \prod_{n\in S\backslash S_1}\Omega_n\right)+\mathbb P_S\left(A_{S_2}\times \prod_{n\in S\backslash S_2}\Omega_n\right)\\\<br>&amp;=\mathbb P_{S_1}(A_{S_1})+\mathbb P_{S_2}(A_{S_2})\\\<br>&amp;=\mathbb P(B_1)+\mathbb P(B_2).<br>\end{aligned}<br>$$</p>
+<p>Therefore finite additivity holds.</p>
+<p><strong>Step 3</strong>: The set function $\mathbb P$ defined on $Z_0$ is continuous from above at the empty set. That is, we need to prove that if $B_n\in Z_0$ and $B_n\downarrow \varnothing$, then</p>
+<p>$$<br>\lim_{n\to\infty}\mathbb P(B_n)=0.<br>$$</p>
+<p>We use proof by contradiction. Suppose that</p>
+<p>$$<br>\lim_{n\to\infty}\mathbb P(B_n)\ne 0.<br>$$</p>
+<p>Since $B_n\downarrow$, we have $\mathbb P(B_n)\downarrow$, and hence there exists $\varepsilon_0&gt;0$ such that</p>
+<p>$$<br>\mathbb P(B_n)\ge \varepsilon_0,\quad \forall n.<br>$$</p>
+<p>Without loss of generality, assume that</p>
+<p>$$<br>B_n=A_n\times \prod_{i=n+1}^{\infty}\Omega_i,\quad<br>A_n\in \prod_{i=1}^n\mathcal F_i.<br>$$</p>
+<p>Since $\prod_{i=1}^n\Omega_i$ is a Polish space, by Theorem 4 there exists $K_n\subset A_n$, with $K_n$ compact, such that</p>
+<p>$$<br>\mathbb P_{\{1,\cdots,n\}}(A_n\backslash K_n)\le \frac{\varepsilon_0}{2^{n+1}}.<br>$$</p>
+<p>Let</p>
+<p>$$<br>\widetilde{B_n}=K_n\times \prod_{i=n+1}^{\infty}\Omega_i,\quad<br>C_n=\bigcap_{i=1}^n \widetilde{B_i}\downarrow<br>$$</p>
+<p>We claim that</p>
+<p>$$<br>C_n\ne \varnothing,\quad \forall n.<br>$$</p>
+<p>Indeed,</p>
+<p>$$<br>\begin{aligned}<br>\mathbb P(B_n\backslash \widetilde{B_n})<br>&amp;=\mathbb P\left((A_n\backslash K_n)\times \prod_{i=n+1}^{\infty}\Omega_i\right)\\\<br>&amp;=\mathbb P_{\{1,\cdots,n\}}(A_n\backslash K_n)\le \frac{\varepsilon_0}{2^{n+1}}.<br>\end{aligned}<br>$$</p>
+<p>Hence</p>
+<p>$$<br>\begin{aligned}<br>\mathbb P(B_n)-\mathbb P(C_n)<br>&amp;=\mathbb P(B_n\backslash C_n)\\\<br>&amp;=\mathbb P\left(\bigcup_{i=1}^n (B_n\backslash \widetilde{B_i})\right)\le \mathbb P\left(\bigcup_{i=1}^n (B_i\backslash \widetilde{B_i})\right)\\\<br>&amp;\le \sum_{i=1}^n \mathbb P(B_n\backslash \widetilde{B_n})\le \frac{\varepsilon_0}{2}.<br>\end{aligned}<br>$$</p>
+<p>Combining this with $\mathbb P(B_n)\ge \varepsilon_0,\ \forall n$, we obtain</p>
+<p>$$<br>\mathbb P(C_n)\ge \frac{\varepsilon}{2}.<br>$$</p>
+<p>Therefore</p>
+<p>$$<br>C_n\ne \varnothing,\quad \forall n.<br>$$</p>
+<p>Thus for every $n\in T$, there exists</p>
+<p>$$<br>\omega^n=(\omega_1^n,\omega_2^n,\cdots)\in C_n.<br>$$</p>
+<p>Clearly, for every $m\in T$,</p>
+<p>$$<br>\omega^{n+m}\in C_{n+m}\subset C_n\subset \widetilde{B_n}.<br>$$</p>
+<p>By the definition of $B_n$, we have</p>
+<p>$$<br>(\omega_1^{n+m},\cdots,\omega_n^{n+m})\in K_n.<br>$$</p>
+<p>Since $\omega_1^{1+m}\in K_1,\ \forall m$, and $K_1$ is compact and hence sequentially compact, there exists a subsequence $n_{1k}\ge 2$ such that</p>
+<p>$$<br>\omega_1^{n_{1k}}\to \omega_1^*\in K_1,\quad k\to\infty.<br>$$</p>
+<p>For this subsequence, since</p>
+<p>$$<br>(\omega_1^{n_{1k}},\omega_2^{n_{1k}})\in K_2,\quad \forall k\in T,<br>$$</p>
+<p>there exists a subsequence $n_{2k}\ge 3$ such that</p>
+<p>$$<br>(\omega_1^{n_{2k}},\omega_2^{n_{2k}})\to (\omega_1^\star,\omega_2^\star)\in K_2,\quad k\to\infty.<br>$$</p>
+<p>Proceeding inductively, for every $m\in T$, there exists a subsequence $n_{mk}\ge m+1$ such that</p>
+<p>$$<br>(\omega_1^{n_{mk}},\omega_2^{n_{mk}},\cdots,\omega_m^{n_{mk}})<br>\to<br>(\omega_1^\star,\omega_2^\star,\cdots,\omega_m^\star)\in K_m,\quad k\to\infty.<br>$$</p>
+<p>Therefore,</p>
+<p>$$<br>\omega=(\omega_1^\star,\omega_2^\star,\cdots)\in \bigcap_{n=1}^{\infty}\widetilde{B_n}\subset \bigcap_{n=1}^{\infty}B_n=\varnothing.<br>$$</p>
+<p>This is a contradiction. Hence the assumption is false, and<br>$$<br>\lim_{n\to\infty}\mathbb P(B_n)=0.<br>$$</p>
+<p><strong>Step 4</strong> Extend $\mathbb P$ to $\prod_{n\in T}\mathcal F_n=\sigma(Z_0)$.</p>
+<p>By Steps 1–3 and Theorem 3, we know that $\mathbb P$ is a countably additive nonnegative set function on the algebra $Z_0$, and clearly</p>
+<p>$$<br>\mathbb P\left(\prod_{n\in T}\Omega_n\right)=1.<br>$$</p>
+<p>Furthermore, the uniqueness condition is also clearly satisfied. Therefore, by the Carathéodory measure extension theorem, $\mathbb P$ can be uniquely extended to a measure on $\prod_{n\in T}\mathcal F_n$.</p>
+<h2 id="Product-Probability-Measures-on-Uncountably-Many-Probability-Spaces"><a href="#Product-Probability-Measures-on-Uncountably-Many-Probability-Spaces" class="headerlink" title="Product Probability Measures on Uncountably Many Probability Spaces"></a>Product Probability Measures on Uncountably Many Probability Spaces</h2><p>With the result for the countable case, we can rather surprisingly obtain the uncountable result very easily.</p>
+<p><strong>Theorem 6</strong> (Kolmogorov consistency theorem) Let $(\Omega_t,\mathcal F_t)$ be measurable spaces, where each $\Omega_t$ is a Polish space, $\mathcal F_t=\mathcal{B}(\Omega_t)$, and the index set $t\in T$ is uncountable. If for every nonempty finite subset $S\subset T$, there exists a probability measure $\mathbb P_S$ on $\prod_{t\in S}\mathcal F_t$, and they satisfy the following <strong>consistency condition</strong>: for every nonempty finite $S_1\subset S_2\subset T$, and every</p>
+<p>$$<br>A_{S_1}\in \prod_{t\in S_1}\mathcal F_t<br>\Longrightarrow<br>A_{S_1}\times \prod_{t\in S_2\backslash S_1}\Omega_t\in \prod_{t\in S_2}\mathcal F_t,<br>$$</p>
+<p>we have</p>
+<p>$$<br>\mathbb P_{S_1}(A_{S_1})<br>=<br>\mathbb P_{S_2}\left(A_{S_1}\times \prod_{t\in S_2\backslash S_1}\Omega_t\right).<br>$$</p>
+<p>Then there exists a unique probability measure $\mathbb P$ on $\left(\prod_{t\in T}\Omega_t,\prod_{t\in T}\mathcal F_t\right)$ such that for every $A_S\in \prod_{t\in S}\mathcal F_t$,</p>
+<p>$$<br>\mathbb P\left(A_S\times \prod_{t\in T\backslash S}\Omega_t\right)=\mathbb P_S(A_S).<br>$$</p>
+<p><strong>Proof:</strong> By the structure theorem of the product $\sigma$-algebra,</p>
+<p>$$<br>\prod_{t\in T}\mathcal F_t=Z.<br>$$</p>
+<p>By Theorem 5, for every nonempty countable subset $S’\subset T$, we have a probability measure $\mathbb P_{S’}$ on $\prod_{t\in S’}\mathcal F_t$. Thus we define a set function $\mathbb P$ on $Z$ by</p>
+<p>$$<br>\mathbb P\left(A_{S’}\times \prod_{t\in T\backslash S’}\Omega_t\right)=\mathbb P_{S’}(A_{S’}),<br>$$</p>
+<p>where $S’\subset T$ is nonempty and countable. Clearly $\mathbb P$ is a nonnegative set function and</p>
+<p>$$<br>\mathbb P\left(\prod_{t\in T}\Omega_t\right)<br>=<br>\mathbb P\left(\Omega_s\times \prod_{t\in T\backslash \{s\}}\Omega_t\right)<br>=<br>\mathbb P_{\{s\}}(\Omega_s)<br>=<br>1.<br>$$</p>
+<p>Therefore we only need to prove countable additivity. If $B_n\in Z$ are pairwise disjoint and</p>
+<p>$$<br>B=\biguplus_{n=1}^{\infty} B_n,<br>$$</p>
+<p>let</p>
+<p>$$<br>B_n=A_{S_n}\times \prod_{t\in T\backslash S_n}\Omega_t<br>$$</p>
+<p>where $S_n$ is nonempty and countable. Let</p>
+<p>$$<br>S=\bigcup_{n=1}^{\infty}S_n,<br>$$</p>
+<p>which is clearly also nonempty and countable. Hence</p>
+<p>$$<br>\begin{aligned}<br>\mathbb P\left(\biguplus_{n=1}^{\infty} B_n\right)<br>&amp;=\mathbb P\left(\biguplus_{n=1}^{\infty}\left(A_{S_n}\times \prod_{t\in S\backslash S_n}\Omega_t\right)\times \prod_{t\in T\backslash S}\Omega_t\right)\\\<br>&amp;=\mathbb P_S\left(\biguplus_{n=1}^{\infty}\left(A_{S_n}\times \prod_{t\in S\backslash S_n}\Omega_t\right)\right)\\\<br>&amp;=\sum_{n=1}^{\infty}\mathbb P_S\left(A_{S_n}\times \prod_{t\in S\backslash S_n}\Omega_t\right)\\\<br>&amp;=\sum_{n=1}^{\infty}\mathbb P\left(A_{S_n}\times \prod_{t\in T\backslash S_n}\Omega_t\right)\\\<br>&amp;=\sum_{n=1}^{\infty}\mathbb P(B_n).<br>\end{aligned}<br>$$</p>
+<p>To prove uniqueness, if two probability measures $\mathbb P$ and $\mathbb{Q}$ both satisfy the requirement, then by the condition their restrictions to the algebra $Z_0$ are the same, and hence necessarily $P\equiv Q$.</p>
+<p>Since $(\mathbb{R},\mathcal{B}(\mathbb{R}))$ is a Polish space, we may also consider finite-dimensional marginal distribution functions. Thus we have the following corollary.</p>
+<p><strong>Corollary</strong> (Kolmogorov consistency theorem) Suppose that for every $n\in \mathbb{N}$ and every $t_1,\cdots,t_n\in T$, there exists a finite-dimensional distribution function $F_{t_1,\cdots,t_n}(x_1,\cdots,x_n)$ satisfying</p>
+<p>(1) Symmetry: for every permutation $\sigma=(\sigma(1),\cdots,\sigma(n))$ of $\{1,2,\cdots,n\}$,</p>
+<p>$$<br>F_{t_{\sigma(1)},\cdots,t_{\sigma(n)}}(x_{\sigma(1)},\cdots,x_{\sigma(n)})<br>=<br>F_{t_1,\cdots,t_n}(x_1,\cdots,x_n).<br>$$</p>
+<p>(2) Consistency: for every $n&gt;m$,</p>
+<p>$$<br>F_{t_1,\cdots,t_m,t_{m+1},\cdots,t_n}(x_1,\cdots,x_m,+\infty,\cdots,+\infty)<br>=<br>F_{t_1,\cdots,t_m}(x_1,\cdots,x_m)<br>$$</p>
+<p>Then there exists a unique probability measure $\mathbb P$ on $\prod_{t\in T}\mathcal{B}(\mathbb{R})$ such that under $\mathbb P$, for every $n\in \mathbb{N}$ and every $t_1,\cdots,t_n\in T$, $F_{t_1,\cdots,t_n}(x_1,\cdots,x_n)$ is exactly the distribution function of the projection $(\pi_{t_1},\cdots,\pi_{t_n})$.</p>
+<p><strong>Note:</strong> The symmetry in the above consistency theorem reflects the unordered nature of the Cartesian product of infinitely many sets. Together with the consistency condition, it is equivalent to satisfying the consistency condition of the previous theorem on a $\pi$-class. Therefore, by the monotone class theorem, the reader can easily prove that the conditions in the corollary are equivalent to the consistency condition, and hence the conclusion follows.</p>
+<blockquote>
+<p>The cover image of this article was taken in Zurich, Switzerland.</p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Kolmogorov Consistency Theorem</p><p><a href="https://handsteinwang.github.io/2024/12/24/Kolmogorov-Consistency-Theorem/">https://handsteinwang.github.io/2024/12/24/Kolmogorov-Consistency-Theorem/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Handstein Wang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-12-24</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-12-24</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Probability-Theory/">Probability Theory</a><a class="link-muted mr-2" rel="tag" href="/tags/Measure-Theory/">Measure Theory</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/12/30/Wasserstein-Distance/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Wasserstein Distance</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/12/21/Monotone-Class-Theorem-for-Sets/"><span class="level-item">Monotone Class Theorem for Sets</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/quokka.8vngnfovwa.webp" alt="Handstein Wang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Handstein Wang</p><p class="is-size-6 is-block">Be friends with time.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Australia</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">22</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">21</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="mailto:wangtuo1020@outlook.com" target="_blank" rel="me noopener">Contact Me</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Email" href="mailto:wangtuo1020@outlook.com"><i class="fas fa-envelope"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://handsteinwang.github.io/readinglist.html" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Reading List</span></span><span class="level-right"><span class="level-item tag">handsteinwang.github.io</span></span></a></li><li><a class="level is-mobile" href="https://overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Overleaf</span></span><span class="level-right"><span class="level-item tag">overleaf.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Approximation-Theory/"><span class="level-start"><span class="level-item">Approximation Theory</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Calculus-of-Variations/"><span class="level-start"><span class="level-item">Calculus of Variations</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Functional-Analysis/"><span class="level-start"><span class="level-item">Functional Analysis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Modeling/"><span class="level-start"><span class="level-item">Generative Modeling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Gradient-Flows/"><span class="level-start"><span class="level-item">Gradient Flows</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Investment-and-Trends/"><span class="level-start"><span class="level-item">Investment and Trends</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Lie-Algebra/"><span class="level-start"><span class="level-item">Lie Algebra</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Markov-Chain/"><span class="level-start"><span class="level-item">Markov Chain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Mean-Field-Langevin-Dynamics/"><span class="level-start"><span class="level-item">Mean-Field Langevin Dynamics</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Numerical-Linear-Algebra/"><span class="level-start"><span class="level-item">Numerical Linear Algebra</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimal-Transport/"><span class="level-start"><span class="level-item">Optimal Transport</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimization-over-the-Space-of-Probability-Measures/"><span class="level-start"><span class="level-item">Optimization over the Space of Probability Measures</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Probability-Theory/"><span class="level-start"><span class="level-item">Probability Theory</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Sampling/"><span class="level-start"><span class="level-item">Sampling</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-03-03T16:00:00.000Z">2026-03-04</time></p><p class="title"><a href="/2026/03/04/Tightness-of-Borel-Measure-and-Radon-Measure/">Tightness of Borel Measure and Radon Measure</a></p><p class="categories"><a href="/categories/Probability-Theory/">Probability Theory</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-03-01T16:00:00.000Z">2026-03-02</time></p><p class="title"><a href="/2026/03/02/Absolutely-Continuous-Curves-and-Metric-Derivative/">Absolutely Continuous Curves and Metric Derivative</a></p><p class="categories"><a href="/categories/Gradient-Flows/">Gradient Flows</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-27T16:00:00.000Z">2026-02-28</time></p><p class="title"><a href="/2026/02/28/Representations-and-Modules-of-Lie-Algebra/">Representations and Modules of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-24T16:00:00.000Z">2026-02-25</time></p><p class="title"><a href="/2026/02/25/Introduction-to-Lie-Algebra-Basic-Definitions/">Basic Concepts of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-21T16:00:00.000Z">2026-02-22</time></p><p class="title"><a href="/2026/02/22/Borel_measure_supp/">Borel Measure, Support and Regularity Property</a></p><p class="categories"><a href="/categories/Probability-Theory/">Probability Theory</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/03/"><span class="level-start"><span class="level-item">March 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/02/"><span class="level-start"><span class="level-item">February 2026</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/01/"><span class="level-start"><span class="level-item">January 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">December 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/11/"><span class="level-start"><span class="level-item">November 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/09/"><span class="level-start"><span class="level-item">September 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/01/"><span class="level-start"><span class="level-item">January 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">December 2024</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">November 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Analysis/"><span class="tag">Analysis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Approximation-Theory/"><span class="tag">Approximation Theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Calculus-of-Variations/"><span class="tag">Calculus of Variations</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diffusion-Model/"><span class="tag">Diffusion Model</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finance/"><span class="tag">Finance</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Flow-Matching/"><span class="tag">Flow Matching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Analysis/"><span class="tag">Functional Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Modeling/"><span class="tag">Generative Modeling</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Gradient-Flows/"><span class="tag">Gradient Flows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Investment/"><span class="tag">Investment</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Lie-Algebra/"><span class="tag">Lie Algebra</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mean-Field-Langevin-Dynamics/"><span class="tag">Mean-Field Langevin Dynamics</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Measure-Theory/"><span class="tag">Measure Theory</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numerical-Linear-Algebra/"><span class="tag">Numerical Linear Algebra</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimal-Transport/"><span class="tag">Optimal Transport</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization/"><span class="tag">Optimization</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization-over-the-Space-of-Probability-Measures/"><span class="tag">Optimization over the Space of Probability Measures</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Probability-Theory/"><span class="tag">Probability Theory</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Sampling/"><span class="tag">Sampling</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Stochastic-Process/"><span class="tag">Stochastic Process</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Trends/"><span class="tag">Trends</span><span class="tag">2</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a><p class="is-size-7"><span>&copy; 2025 Handstein Wang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
