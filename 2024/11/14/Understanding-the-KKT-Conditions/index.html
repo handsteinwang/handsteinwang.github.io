@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Understanding the KKT Conditions - Handstein Wang</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Handstein Wang"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Handstein Wang"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="The KKT conditions (Karush–Kuhn–Tucker Conditions) are one of the most important results in optimization, and readers familiar with optimization will certainly not find them unfamiliar. This article w"><meta property="og:type" content="blog"><meta property="og:title" content="Understanding the KKT Conditions"><meta property="og:url" content="https://handsteinwang.github.io/2024/11/14/Understanding-the-KKT-Conditions/"><meta property="og:site_name" content="Handstein Wang"><meta property="og:description" content="The KKT conditions (Karush–Kuhn–Tucker Conditions) are one of the most important results in optimization, and readers familiar with optimization will certainly not find them unfamiliar. This article w"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_9.2a5n8krqzf.webp"><meta property="article:published_time" content="2024-11-13T16:00:00.000Z"><meta property="article:modified_time" content="2024-11-13T16:00:00.000Z"><meta property="article:author" content="Handstein Wang"><meta property="article:tag" content="Optimization"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_9.2a5n8krqzf.webp"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://handsteinwang.github.io/2024/11/14/Understanding-the-KKT-Conditions/"},"headline":"Understanding the KKT Conditions","image":["https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_9.2a5n8krqzf.webp"],"datePublished":"2024-11-13T16:00:00.000Z","dateModified":"2024-11-13T16:00:00.000Z","author":{"@type":"Person","name":"Handstein Wang"},"publisher":{"@type":"Organization","name":"Handstein Wang","logo":{"@type":"ImageObject","url":"https://handsteinwang.github.io/images/hw.svg"}},"description":"The KKT conditions (Karush–Kuhn–Tucker Conditions) are one of the most important results in optimization, and readers familiar with optimization will certainly not find them unfamiliar. This article w"}</script><link rel="canonical" href="https://handsteinwang.github.io/2024/11/14/Understanding-the-KKT-Conditions/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="https://handsteinwang.github.io/readinglist.html">Reading List</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/switzerland_9.2a5n8krqzf.webp" alt="Understanding the KKT Conditions"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-11-13T16:00:00.000Z" title="2024/11/14 00:00:00">2024-11-14</time></span><span class="level-item"><a class="link-muted" href="/categories/Optimization/">Optimization</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Understanding the KKT Conditions</h1><div class="content"><p><strong>The KKT conditions (Karush–Kuhn–Tucker Conditions)</strong> are one of the most important results in optimization, and readers familiar with optimization will certainly not find them unfamiliar. This article will focus on introducing the motivation behind some key concepts introduced in the proof of the KKT conditions (such as the introduction of the <strong>active set</strong> and the <strong>constraint qualification</strong>), and will review the complete proof of the KKT conditions.</p>
+<span id="more"></span>
+
+<p>In this article, we will mainly consider the following <strong>nonlinear optimization problem (Nonlinear Optimization Problem, hereinafter abbreviated as NLP)</strong>:<br>$$<br>\begin{aligned}<br>\min_{x\in \mathbb{R}^n}&amp;\quad f(x),\\\<br>s.t.&amp;\quad g_i(x) = 0,\quad i=1,\cdots,m_e,\\\<br>&amp;\quad g_i(x)\ge 0,\quad i=m_e+1,\cdots,m,<br>\end{aligned}\quad\quad (\text{NLP})<br>$$<br>where $f:\mathbb{R}^n\to\mathbb{R}$ and $g_i:\mathbb{R}^n\to\mathbb{R},\ i=1,\cdots,m$ are continuously differentiable.</p>
+<p>We denote $\mathcal E = \{1,\cdots,m_e\}$ as the index set consisting of all equality constraints, and $\mathcal I = \{m_e+1,\cdots,m\}$ as the index set consisting of all inequality constraints, and<br>$$<br>S = \{x\in\mathbb{R}^n\ |\ g_i(x)=0,\ i\in \mathcal E;\ g_i(x)\ge 0,\ i\in \mathcal I\}<br>$$<br>as the <strong>feasible set</strong> of (NLP). For a given $x\in S$, we call the set of all indices for which equality holds in $S$ the <strong>active set</strong> of $x$, and denote it by $\mathcal{A}(x)$, that is,<br>$$<br>\begin{aligned}<br>\mathcal{A}(x) &amp;= \mathcal I(x)\cup \mathcal E,\\\<br>\text{where } \mathcal I(x)&amp;=\{i\in \mathcal I\ |\  g_i(x)=0\}.<br>\end{aligned}<br>$$</p>
+<p>Before proving the KKT conditions, let us first review the <strong>tangent cone</strong>, the <strong>basic first-order optimality condition</strong>, and <strong>Farkas’ lemma</strong>, which are important foundations for proving the KKT conditions.</p>
+<h1 id="Tangent-Cone"><a href="#Tangent-Cone" class="headerlink" title="Tangent Cone"></a>Tangent Cone</h1><p><strong>Definition 1</strong>: For $x\in S\subseteq \mathbb{R}^n$, we call</p>
+<p>$$<br>T_S(x) = \left\{d\in\mathbb R^n\ \middle|\  \text{there exist } \{x_k\} \subseteq S,\ x_k\to x,\ \text{and }\{t_k\}\subseteq \mathbb R_+,\ t_k\to 0^+ \text{ such that }\lim_{k\to\infty}\frac{x_k-x}{t_k}=d\right\}<br>$$</p>
+<p>the <strong>tangent cone</strong> of $S$ at $x$.</p>
+<p>Let us first explain the set-theoretic meaning of the definition of the tangent cone: intuitively, for $x\in S\subseteq \mathbb{R}^n$, a direction $d$ in the tangent cone is actually “the opposite direction of those (limiting) directions from which one can keep hitting the point $x$ from within $S$.”</p>
+<div align="center">
+  <img src="/images/tangent.jpg" style="zoom:60%; display:block; margin:0 auto;" /><br/>
+  Figure 1: An intuitive understanding of the tangent cone.<br/>
+
+</div>
+
+
+
+<p>Let us look at several examples of tangent cones:</p>
+<p>In ①, $S$ is the three edges of a triangle (excluding the interior); in ②, $S$ is the three edges of a triangle including the interior; in ③, $S$ is a circle (excluding the interior); in ④, $S$ is a circle including the interior.</p>
+<div align="center">
+  <img src="/images/tan_example.jpg" style="zoom:60%; display:block; margin:0 auto;" /><br/>
+  Figure 2: Examples of tangent cones.
+</div>
+
+
+
+
+<p>Combining these examples, we have a very important observation:</p>
+<p><strong>Proposition 1</strong>: If $x$ lies in the interior of the set $S$, then necessarily $T_S(x) = \mathbb{R}^n$.</p>
+<p><strong><em>Proof</em></strong> : The proof of this proposition is trivial.</p>
+<p><strong>This is a seemingly trivial but in fact very important observation, and this is exactly the motivation for defining the active set (essentially, if $x$ satisfies $g_i(x)&gt;0$ for some $i$, then by the continuity of $g_i$ we know that the set $S_i = \{x|g_i(x)\ge 0\}$ is open, hence $x$ is an interior point of the set $S_i = \{x|g_i(x)\ge 0\}$, and therefore $T_{S_i}(x)=\mathbb{R}^n$; moreover, the intersection of $\mathbb{R}^n$ with any set in $\mathbb{R}^n$ is still that set itself, which is equivalent to not taking the intersection at all).</strong></p>
+<p>For the feasible set $S$ of (NLP), we clearly have<br>$$<br>S = \bigcap\limits_{i=1}^m S_i,\quad \text{where } S_i = \{x|g_i(x)= 0\},\ i\in\mathcal E;\  S_i = S_i = \{x|g_i(x)\ge 0\},\ i\in \mathcal I<br>$$<br>Thus we naturally ask the following question:</p>
+<p><strong>Question 1</strong>: For $x\in S$, do we have<br>$$<br>T_S(x) = \bigcap\limits_{i=1}^m T_{S_i}(x) \ ?<br>$$</p>
+<p>Unfortunately, the answer to Question 1 is negative. A counterexample is as follows:</p>
+<p>Consider two circles $S_1$ and $S_2$ tangent at one point $x$ (excluding the interior), and let $S = S_1\cap S_2 = \{x\}$. Then $T_S(x) = \{0\}$, whereas both $T_{S_1}(x)$ and $T_{S_2}(x)$ are the blue-line parts, as shown in the following figure.</p>
+<div align="center">
+  <img src="/images/tan_example_2.jpg" style="zoom:60%; display:block; margin:0 auto;" /><br/>
+  Figure 3: A counterexample to Question 1.
+</div>
+
+
+
+
+<p>However, we have the following inclusion relation:</p>
+<p><strong>Proposition 2</strong>: For $x\in S$, we have</p>
+<p>$$<br>T_S(x) \subseteq \bigcap\limits_{i=1}^m T_{S_i}(x).<br>$$</p>
+<p><strong><em>Proof</em></strong> : For any $d\in T_S(x)$, there exist $\{x_k\}\subseteq S\subseteq S_i,\ i=1,\cdots,m$ and $\{t_k\}\subseteq \mathbb R_+,\ t_k\to 0^+$ such that</p>
+<p>$$<br>\lim_{k\to\infty}\frac{x_k-x}{t_k}=d.<br>$$</p>
+<p>By the definition of $T_{S_i}(x)$, we know that $d\in T_{S_i}(x),\ i=1,\cdots,m$, hence<br>$$<br>T_S(x) \subseteq \bigcap\limits_{i=1}^m T_{S_i}(x).<br>$$</p>
+<p>Combining Proposition 1 and Proposition 2, we obtain the following result:</p>
+<p><strong>Lemma 1</strong>: For $x\in S$, we have<br>$$<br>T_S(x) \subseteq \bigcap\limits_{i=1}^m T_{S_i}(x) = \bigcap\limits_{i\in \mathcal{A}(x)} T_{S_i}(x),<br>$$<br>where $\mathcal{A}(x)$ is the active set of $x$.</p>
+<p>According to Lemma 1, below we only need to consider the active set of $x$.</p>
+<p>Now we consider $T_{S_i}(x),\ i\in \mathcal{A}(x)$. From geometric intuition, we can establish a certain connection between $T_{S_i}(x)$ and $\nabla g_i(x)$:</p>
+<div align="center">
+  <img src="/images/grad.jpg" style="zoom:60%; display:block; margin:0 auto;" /><br/>
+  Figure 4: The connection between tangent-cone directions and gradient directions.
+</div>
+
+
+
+
+
+
+<p>Thus we naturally ask the following question:</p>
+<p><strong>Question 2</strong>: For $i\in \mathcal{A}(x)$, do we necessarily have<br>$$<br>T_{S_i}(x) = \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0 \},\quad i\in\mathcal E<br>$$<br>$$<br>T_{S_i}(x) = \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d\ge 0 \},\quad i\in\mathcal I(x)<br>$$</p>
+<p>Unfortunately, the answer to Question 2 is still negative. In fact, $T_{S_i}(x)$ depends only on the geometric properties of $S_i$, whereas $\nabla g_i$ depends on the expression of $g_i$.</p>
+<p>Let us look at the following counterexample:</p>
+<p>If $S_i = \{x\in\mathbb{R}\ |\  x^3=0\}$, then $T_{S_i}(0) = \mathbb{R}_+$, but for $g_i(x) = x^3$, the gradient at $0$ is $\nabla g_i(0) = 0$, and hence</p>
+<p>$$<br>\{d\in\mathbb{R}\ |\  (\nabla g_i(x))^T d=0 \}=\mathbb{R},<br>$$</p>
+<p>so the two are not equal. Moreover,</p>
+<p>$$<br>T_{S_i}(x) \subseteq \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0 \},\quad i\in\mathcal E.<br>$$</p>
+<p>Similarly, we have the following inclusion relations:</p>
+<p><strong>Lemma 2</strong><br>$$<br>T_{S_i}(x) \subseteq \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0 \},\quad i\in\mathcal E<br>$$<br>$$<br>T_{S_i}(x) \subseteq \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d\ge 0 \},\quad i\in\mathcal I(x)<br>$$</p>
+<p><strong><em>Proof</em></strong> : First consider the case $i\in\mathcal E$. For any $d\in T_{S_i}(x)$, there exist $\{x_k\}\subseteq S_i$ and $t_k\to 0^+$ such that<br>$$<br>\lim_{k\to\infty}\frac{x_k-x}{t_k}=d.<br>$$<br>Let<br>$$<br>y_k = \frac{x_k-x}{t_k},<br>$$<br>then $y_k\to d$. Since $x_k\in S_i$, we have<br>$$<br>g_i(x_k) =g_i(x+t_ky_k)=0,\ \forall k.<br>$$<br>Consider<br>$$<br>\varphi(t)=g_i(x+t y_k).<br>$$</p>
+<p>On the one hand,</p>
+<p>$$<br>\varphi^\prime(0) = \lim_{t\to 0}\frac{g_i(x+ty_k)-g_i(x)}{t} = \lim_{k\to \infty} \frac{g_i(x+t_ky_k)-g_i(x)}{t_k} = 0.\tag{1}<br>$$</p>
+<p>On the other hand,<br>$$<br>\varphi^\prime(0) = (\nabla g_i(x))^Ty_k.<br>$$<br>Therefore,<br>$$<br>(\nabla g_i(x))^Ty_k=0,\ \forall k.<br>$$<br>Letting $k\to\infty$, we obtain<br>$$<br>(\nabla g_i(x))^Td=0,<br>$$<br>that is,<br>$$<br>d\in \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0 \}.<br>$$</p>
+<p>For $i\in\mathcal I(x)$, the proof is similar. (In fact, in this case $g_i(x_k) =g_i(x+t_ky_k)\ge 0$, so it suffices to replace (1) by $\ge 0$.)</p>
+<p>Summarizing Lemma 1 and Lemma 2, we obtain<br>$$<br>T_S(x)\subseteq  \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0,\ i\in\mathcal E; \  (\nabla g_i(x))^T d\ge 0,\ i\in\mathcal I(x)\}.<br>$$<br>This leads to the definition of the linearized feasible direction cone:</p>
+<p><strong>Definition 2 (Linearized Feasible Direction Cone)</strong> We call<br>$$<br>L(x) = \{d\in\mathbb{R}^n\ |\  (\nabla g_i(x))^T d=0,\ i\in\mathcal E; \  (\nabla g_i(x))^T d\ge 0,\ i\in\mathcal I(x)\}<br>$$<br>the <strong>linearized feasible direction cone</strong> of (NLP).</p>
+<p>Summarizing the above, we have the following lemma:</p>
+<p><strong>Lemma 3</strong>: $T_S(x)\subseteq L(x)$.</p>
+<p>Moreover, from the previous counterexample we know that equality does not necessarily hold. In order to make equality hold, we introduce the definition of the constraint qualification:</p>
+<p><strong>Definition 3 (Constraint Qualification)</strong> A condition under which $T_S(x)= L(x)$ holds is called a <strong>constraint qualification</strong>.</p>
+<p>At this point, we have completed the introduction of the motivation for introducing the active set and the constraint qualification. Next, based on the tangent cone, we give the basic first-order optimality condition.</p>
+<h1 id="Basic-First-Order-Optimality-Condition"><a href="#Basic-First-Order-Optimality-Condition" class="headerlink" title="Basic First-Order Optimality Condition"></a>Basic First-Order Optimality Condition</h1><p><strong>Theorem 1</strong>: Let $x^\star$ be a local minimizer of (NLP), let $f:\mathbb{R}^n\to\mathbb{R}$ and $g_i:\mathbb{R}^n\to\mathbb{R},\ i=1,\cdots,m$ be continuously differentiable, and let $S$ be the feasible set of (NLP). Then for any $d\in T_S(x^\star)$, we have</p>
+<p>$$<br>(\nabla f(x^\star))^Td\ge 0.<br>$$</p>
+<p><strong><em>Proof</em></strong> : For any $d\in T_S(x^\star)$, there exist $\lbrace x_k\rbrace \subseteq S,\ i=1,\cdots,m$ and $\lbrace t_k\rbrace \subseteq \mathbb R_+,\ t_k\to 0^+$ such that</p>
+<p>$$<br>\lim_{k\to\infty}\frac{x_k-x}{t_k}=d.<br>$$</p>
+<p>Since $x^\star$ is a local minimizer, when $k$ is sufficiently large we have<br>$$<br>f(x_k)-f(x^\star)\ge 0.<br>$$</p>
+<p>By the mean value theorem for differentiable functions, there exists $\xi_k$ between $x_k$ and $x$ such that</p>
+<p>$$<br>f(x_k)-f(x^\star) = (\nabla f(\xi_k))^T(x_k-x^\star).<br>$$</p>
+<p>Hence, for sufficiently large $k$,</p>
+<p>$$<br>\frac{f(x_k)-f(x^\star)}{t_k} =(\nabla f(\xi_k))^T\frac{x_k-x^\star}{t_k}\ge 0.<br>$$</p>
+<p>Letting $k\to\infty$, by the continuity of $\nabla f$ we obtain</p>
+<p>$$<br>(\nabla f(x^\star))^Td\ge 0.<br>$$</p>
+<p>According to the constraint qualification, we know that $L(x^\star) = T_S(x^\star)$, and therefore for any $d\in L(x^\star)$, we must have $d\in T_S(x^\star)$, that is,</p>
+<p>$$<br>\left.<br>\begin{matrix}<br>i\in\mathcal E, \ (\nabla g_i(x^\star))^Td=0\\\<br>i\in\mathcal I(x^\star), \ (\nabla g_i(x^\star))^Td\ge 0<br>\end{matrix}<br>\right\}\Longrightarrow (\nabla f(x^\star))^Td\ge 0.<br>$$</p>
+<p>In order to further obtain the KKT conditions, we need Farkas’ lemma.</p>
+<p><strong>Theorem 2 (Farkas’ Lemma)</strong> For $A\in \mathbb{R}^{m\times n}$ and $b\in \mathbb{R}^n$, the following statements are equivalent:</p>
+<p>(1) For any $d\in \mathbb{R}^n$, if $Ad\ge 0$, then $b^Td\ge 0$.</p>
+<p>(2) There exists $\lambda\in \mathbb{R}^m,\ \lambda\ge 0$ such that $A^T\lambda = b$.</p>
+<p>Farkas’ lemma requires the separating hyperplane theorem for convex sets. Since its proof would depart from the main line, we omit it here. Interested readers may consult the relevant literature by themselves.</p>
+<p>Here we only present the geometric meaning of Farkas’ lemma.</p>
+<p>Let $A^T = [a_1,a_2,\cdots,a_m]$. Then Farkas’ lemma states that $b$ lies in the convex cone generated by the vectors $a_1,\cdots,a_m$ if and only if whenever $d$ forms an acute angle with the vectors $a_1,\cdots,a_m$, then $d$ also forms an acute angle with $b$, as shown in the following figure:</p>
+<div align="center">
+  <img src="/images/farkas.jpg" style="zoom:60%; display:block; margin:0 auto;" /><br/>
+  Figure 5: Geometric interpretation of Farkas' lemma.
+</div>
+
+
+<p>Based on the above analysis, we now give the KKT conditions.</p>
+<h1 id="KKT-Conditions"><a href="#KKT-Conditions" class="headerlink" title="KKT Conditions"></a>KKT Conditions</h1><p><strong>Theorem 3 (KKT Conditions)</strong> Let $x^\star$ be a local minimizer of (NLP), let $f:\mathbb{R}^n\to\mathbb{R}$ and $g_i:\mathbb{R}^n\to\mathbb{R},\ i=1,\cdots,m$ be continuously differentiable, let $S$ be the feasible set of (NLP), and suppose that $T_S(x^\star) = L(x^\star)$ holds. Then there exists $\lambda^\star\in \mathbb{R}^m$ such that the following hold:</p>
+<ul>
+<li><strong>(Stationarity condition)</strong>: $\nabla f(x^\star)-\sum\limits_{i=1}^m \lambda_i^\star\nabla g_i(x^\star) = 0$.</li>
+<li><strong>(Primal feasibility condition)</strong>: $g_i(x^\star) = 0,\ \forall i\in \mathcal E$ and $g_i(x^\star) \ge 0,\ \forall i\in \mathcal I$.</li>
+<li><strong>(Dual feasibility condition)</strong>: $\lambda_i^\star\ge 0,\ \forall i\in \mathcal I$.</li>
+<li><strong>(Complementary slackness condition)</strong>: $\lambda_i^\star g_i(x^\star)=0,\ \forall i\in\mathcal I$.</li>
+</ul>
+<p><strong><em>Proof</em></strong> : Since $x^\star$ is a local minimizer of (NLP) and $T_S(x^\star) = L(x^\star)$, we have</p>
+<p>$$<br>\left.<br>\begin{matrix}<br>i\in\mathcal E, \ (\nabla g_i(x^\star))^Td=0\\\<br>i\in\mathcal I(x^\star), \ (\nabla g_i(x^\star))^Td\ge 0<br>\end{matrix}<br>\right\}\Longrightarrow (\nabla f(x^\star))^Td\ge 0.\quad (2)<br>$$</p>
+<p>Let</p>
+<p>$$<br>A = \begin{pmatrix}<br>(\nabla g_i(x^\star))^T,\quad(i\in \mathcal E)\\\<br>-(\nabla g_i(x^\star))^T,\quad(i\in \mathcal E)\\\<br>(\nabla g_i(x^\star))^T,\quad(i\in \mathcal I(x^\star))<br>\end{pmatrix}.<br>$$</p>
+<p>From (2), we know that whenever $Ad\ge 0$, we have</p>
+<p>$$<br>(\nabla f(x^\star))^Td\ge 0.<br>$$</p>
+<p>Therefore, by Farkas’ lemma, there exists</p>
+<p>$$<br>\begin{pmatrix}<br>\lambda\\\<br>\mu_+\\\<br>\mu_-<br>\end{pmatrix}\ge 0<br>$$</p>
+<p>such that</p>
+<p>$$<br>A^T\begin{pmatrix}<br>\lambda\\\<br>\mu_+\\\<br>\mu_-<br>\end{pmatrix} =\nabla f(x^\star).<br>$$</p>
+<p>Define</p>
+<p>$$<br>\lambda_i^\star = \lambda_i,\quad \forall i\in \mathcal I(x^\star)<br>$$</p>
+<p>$$<br>\lambda_i^\star = 0,\quad \forall i\in \mathcal I\backslash\mathcal I(x^\star)<br>$$</p>
+<p>$$<br>\lambda_i^\star = \mu_+-\mu_-,\quad \forall i\in \mathcal E.<br>$$</p>
+<p>It is not difficult for the reader to verify that the KKT conditions hold.</p>
+<blockquote>
+<p> The cover image of this article was taken in Lucerne, Switzerland.</p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Understanding the KKT Conditions</p><p><a href="https://handsteinwang.github.io/2024/11/14/Understanding-the-KKT-Conditions/">https://handsteinwang.github.io/2024/11/14/Understanding-the-KKT-Conditions/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Handstein Wang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-11-14</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-11-14</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Optimization/">Optimization</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/12/02/Probability-Measure-on-the-Path-Space/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Probability Measure on the Path Space</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/11/10/Krylov/"><span class="level-item">Krylov Subspace and GMRES Algorithm</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/quokka.8vngnfovwa.webp" alt="Handstein Wang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Handstein Wang</p><p class="is-size-6 is-block">Be friends with time.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Australia</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">24</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">22</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="mailto:wangtuo1020@outlook.com" target="_blank" rel="me noopener">Contact Me</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Email" href="mailto:wangtuo1020@outlook.com"><i class="fas fa-envelope"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://handsteinwang.github.io/readinglist.html" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Reading List</span></span><span class="level-right"><span class="level-item tag">handsteinwang.github.io</span></span></a></li><li><a class="level is-mobile" href="https://overleaf.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Overleaf</span></span><span class="level-right"><span class="level-item tag">overleaf.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Abstract-Algebra/"><span class="level-start"><span class="level-item">Abstract Algebra</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Approximation-Theory/"><span class="level-start"><span class="level-item">Approximation Theory</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Calculus-of-Variations/"><span class="level-start"><span class="level-item">Calculus of Variations</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Functional-Analysis/"><span class="level-start"><span class="level-item">Functional Analysis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Generative-Modeling/"><span class="level-start"><span class="level-item">Generative Modeling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Gradient-Flows/"><span class="level-start"><span class="level-item">Gradient Flows</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Investment-and-Trends/"><span class="level-start"><span class="level-item">Investment and Trends</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Lie-Algebra/"><span class="level-start"><span class="level-item">Lie Algebra</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Markov-Chain/"><span class="level-start"><span class="level-item">Markov Chain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Mean-Field-Langevin-Dynamics/"><span class="level-start"><span class="level-item">Mean-Field Langevin Dynamics</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Numerical-Linear-Algebra/"><span class="level-start"><span class="level-item">Numerical Linear Algebra</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimal-Transport/"><span class="level-start"><span class="level-item">Optimal Transport</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimization/"><span class="level-start"><span class="level-item">Optimization</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Optimization-over-the-Space-of-Probability-Measures/"><span class="level-start"><span class="level-item">Optimization over the Space of Probability Measures</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Probability-Theory/"><span class="level-start"><span class="level-item">Probability Theory</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Sampling/"><span class="level-start"><span class="level-item">Sampling</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-03-03T16:00:00.000Z">2026-03-04</time></p><p class="title"><a href="/2026/03/04/Tightness-of-Borel-Measure-and-Radon-Measure/">Tightness of Borel Measure and Radon Measure</a></p><p class="categories"><a href="/categories/Probability-Theory/">Probability Theory</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-03-01T16:00:00.000Z">2026-03-02</time></p><p class="title"><a href="/2026/03/02/Absolutely-Continuous-Curves-and-Metric-Derivative/">Absolutely Continuous Curves and Metric Derivative</a></p><p class="categories"><a href="/categories/Gradient-Flows/">Gradient Flows</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-27T16:00:00.000Z">2026-02-28</time></p><p class="title"><a href="/2026/02/28/Representations-and-Modules-of-Lie-Algebra/">Representations and Modules of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-24T16:00:00.000Z">2026-02-25</time></p><p class="title"><a href="/2026/02/25/Introduction-to-Lie-Algebra-Basic-Definitions/">Basic Concepts of Lie Algebra</a></p><p class="categories"><a href="/categories/Lie-Algebra/">Lie Algebra</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-02-21T16:00:00.000Z">2026-02-22</time></p><p class="title"><a href="/2026/02/22/Borel_measure_supp/">Borel Measure, Support and Regularity Property</a></p><p class="categories"><a href="/categories/Probability-Theory/">Probability Theory</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/03/"><span class="level-start"><span class="level-item">March 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/02/"><span class="level-start"><span class="level-item">February 2026</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/01/"><span class="level-start"><span class="level-item">January 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">December 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/11/"><span class="level-start"><span class="level-item">November 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/09/"><span class="level-start"><span class="level-item">September 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/01/"><span class="level-start"><span class="level-item">January 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">December 2024</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">November 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/09/"><span class="level-start"><span class="level-item">September 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Abstract-Algebra/"><span class="tag">Abstract Algebra</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Analysis/"><span class="tag">Analysis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Approximation-Theory/"><span class="tag">Approximation Theory</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Calculus-of-Variations/"><span class="tag">Calculus of Variations</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diffusion-Model/"><span class="tag">Diffusion Model</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Finance/"><span class="tag">Finance</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Flow-Matching/"><span class="tag">Flow Matching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Analysis/"><span class="tag">Functional Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Generative-Modeling/"><span class="tag">Generative Modeling</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Gradient-Flows/"><span class="tag">Gradient Flows</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Investment/"><span class="tag">Investment</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Lie-Algebra/"><span class="tag">Lie Algebra</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mean-Field-Langevin-Dynamics/"><span class="tag">Mean-Field Langevin Dynamics</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Measure-Theory/"><span class="tag">Measure Theory</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Numerical-Linear-Algebra/"><span class="tag">Numerical Linear Algebra</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimal-Transport/"><span class="tag">Optimal Transport</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization/"><span class="tag">Optimization</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Optimization-over-the-Space-of-Probability-Measures/"><span class="tag">Optimization over the Space of Probability Measures</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Probability-Theory/"><span class="tag">Probability Theory</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Sampling/"><span class="tag">Sampling</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Stochastic-Process/"><span class="tag">Stochastic Process</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Trends/"><span class="tag">Trends</span><span class="tag">2</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a><p class="is-size-7"><span>&copy; 2025 Handstein Wang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
