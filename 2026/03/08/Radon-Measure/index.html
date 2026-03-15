@@ -42,7 +42,7 @@
 <p><strong><em>Proof</em></strong>: For each $x \in K$ there exists a neighborhood $N_x$ of $x$ with $f(N_x) &lt; \infty$. The sets $\{N_x:x\in K\}$ cover $K$, and so there is a finite subcover. Additivity then ensures that $f(K) &lt; \infty$. $\square$</p>
 <p><strong>Definition 2.</strong> A <em>Radon measure</em> $\mu$ on a metrizable space $(X,\tau)$ is a tight additive function from $\mathcal{B}(X)$ to $[0,\infty]$ which is locally finite. </p>
 <p><strong>Remark:</strong> Since non-negative additive tight function on the Borel sets of a metrizable space $(X,\tau)$ is also $\sigma$-additive, a Radon measure $\mu$ is indeed a measure, and, by the preceding property, $\mu(K) &lt; \infty$ if $K$ is compact.</p>
-<p><strong>Proposition 2.</strong> If $\mu$ is a Radon measure on a separable metrizable space, then $\mu$ is $\sigma$-finite; there exists a countable set $\mathcal{W}$ of open sets for which<br>$$<br>X=\bigcup_{W\in\mathcal{W}}W<br>$$<br>and $f(W)&lt;\infty$ for all $W\in\mathcal{W}$.</p>
+<p><strong>Proposition 2.</strong> If $\mu$ is a Radon measure on a separable metrizable space, then $\mu$ is $\sigma$-finite; there exists a countable set $\mathcal{W}$ of open sets for which<br>$$<br>X=\bigcup_{W\in\mathcal{W}}W<br>$$<br>and $f(W)&lt;\infty$, for all $W\in\mathcal{W}$.</p>
 <p><strong><em>Proof</em></strong>: Let $d$ be a metric on $X$ which defines the topology $\tau$. For each $n \in \mathbb{N}$, let</p>
 <p>$$<br>U_n=\{x\in X:\text{there exists }r_x&gt;1/n\text{ such that }f(N_{r_x}(x))&lt;\infty\}.<br>$$</p>
 <p>First, we show that $U_n$ is open for each $n\in \mathbb{N}$. For $x\in U_n$ and<br>$$<br>d(x,y)&lt; r_x-\frac{1}{n}.<br>$$<br>Then let<br>$$<br>s_y=r_x-d(x,y)&gt;r_x-(r_x-\frac{1}{n})=\frac{1}{n}.<br>$$<br>Now we claim that</p>
@@ -57,6 +57,77 @@
 <p>$$<br>X=\bigcup_{W\in\mathcal{W}}W.\quad \square<br>$$</p>
 <p><strong>Remark:</strong> Suppose that $X$ and $Y$ are metric spaces, that $f:X\to Y$ is continuous and that $\mu$ is a Radon measure on $X$. Then the push-forward measure $f_\star(\mu)$ need <strong>not</strong> be a Radon measure on $Y$.</p>
 <p><strong>Counterexample</strong>: Let $\mu$ be counting measure on $\mathbb{N}$, and let $f:\mathbb{N}\to [0,\infty]$ be the inclusion mapping. Then $f_*(\mu)$ is not locally finite at $\infty$.</p>
+<p><strong>Theorem 1.</strong> Let $(X,\tau)$ be a Polish space, and let $(U_i)<em>{i=1}^\infty$ be a sequence of open subsets of $X$ such that<br>$$<br>X=\bigcup</em>{i=1}^\infty U_i.<br>$$<br>For each $i\in \mathbb{N}$, let $\mu_i$ be a finite Borel measure on $U_i$. Assume that these measures are compatible in the sense that whenever $A$ is a Borel subset of $U_i\cap U_j$, one has<br>$$<br>\mu_i(A)=\mu_j(A).<br>$$<br>Then there exists a unique Radon measure $\pi$ on $X$ such that for every $i\in \mathbb{N}$ and every Borel set $A\subseteq U_i$,<br>$$<br>\pi(A)=\mu_i(A).<br>$$</p>
+<p>Suppose that for each $i$, $\mu_i$ is a finite measure on the Borel sets of $U_i$ and that these measures are compatible: if $A$ is a Borel set of $U_i\cap U_j$, then</p>
+<p>$$<br>\mu_i(A)=\mu_j(A).<br>$$</p>
+<p>Then there exists a unique Radon measure $\pi$ on $X$ for which</p>
+<p>$$<br>\pi(A)=\mu_i(A)<br>$$</p>
+<p>for each Borel set $A$ in $U_i$, for each $i\in \mathbb{N}$.</p>
+<p><strong><em>Proof</em></strong>: Let</p>
+<p>$$<br>V_j=\bigcup_{i=1}^j U_i.<br>$$</p>
+<p>The compatibility condition ensures that we can define a finite positive Borel measure $\nu_j$ on $V_j$ such that</p>
+<p>$$<br>\nu_j(A)=\mu_i(A)<br>$$</p>
+<p>if $1\le i\le j$ and $A\subseteq U_i$ is Borel.</p>
+<p>Further, if $A$ is a Borel subset of $V_j$ and $j\le k$, then</p>
+<p>$$<br>\nu_j(A)=\nu_k(A).<br>$$</p>
+<p>If $A$ is a Borel subset of $X$, then $(\nu_j(A\cap V_j))_{j=1}^\infty$ is an increasing sequence. Indeed, if $j\le k$, then</p>
+<p>$$<br>A\cap V_j\subseteq A\cap V_k,<br>$$</p>
+<p>and since $\nu_k$ extends $\nu_j$ on $V_j$,</p>
+<p>$$<br>\nu_j(A\cap V_j)=\nu_k(A\cap V_j)\le \nu_k(A\cap V_k).<br>$$</p>
+<p>Let</p>
+<p>$$<br>\pi(A)=\lim_{j\to\infty}\nu_j(A\cap V_j).<br>$$</p>
+<p>We now verify that $\pi$ is tight, locally finite and additive.</p>
+<p>First, $\pi$ is locally finite. Let $x\in X$. Since $\bigcup_{i=1}^\infty U_i=X$, there exists $i$ such that $x\in U_i$. Because $U_i\subseteq V_j$ for every $j\ge i$, if $A\subseteq U_i$ is Borel then</p>
+<p>$$<br>\nu_j(A)=\mu_i(A), \qquad j\ge i.<br>$$</p>
+<p>Hence</p>
+<p>$$<br>\pi(A)=\lim_{j\to\infty}\nu_j(A\cap V_j)=\mu_i(A).<br>$$</p>
+<p>Taking $A=U_i$, we obtain</p>
+<p>$$<br>\pi(U_i)=\mu_i(U_i)&lt;\infty.<br>$$</p>
+<p>Thus $x$ has an open neighbourhood of finite $\pi$-measure, and $\pi$ is locally finite.</p>
+<p>Next, $\pi$ is additive. Let $A,B\subseteq X$ be disjoint Borel sets. Then for each $j$,</p>
+<p>$$<br>(A\cup B)\cap V_j=(A\cap V_j)\cup (B\cap V_j),<br>$$</p>
+<p>and the two sets on the right-hand side are disjoint. Since $\nu_j$ is a measure,</p>
+<p>$$<br>\nu_j((A\cup B)\cap V_j)=\nu_j(A\cap V_j)+\nu_j(B\cap V_j).<br>$$</p>
+<p>Passing to the limit gives</p>
+<p>$$<br>\pi(A\cup B)=\pi(A)+\pi(B).<br>$$</p>
+<p>So $\pi$ is additive.</p>
+<p>Finally, $\pi$ is tight. Let $A$ be a Borel subset of $X$ with $\pi(A)&lt;\infty$, and let $\varepsilon&gt;0$. By definition of $\pi(A)$, there exists $j$ such that</p>
+<p>$$<br>\pi(A)-\nu_j(A\cap V_j)&lt;\varepsilon/2.<br>$$</p>
+<p>Since $V_j$ is an open subspace of the Polish space $X$, it is itself Polish. The measure $\nu_j$ is a finite Borel measure on the Polish space $V_j$, hence it is a Radon measure on $V_j$. Therefore there exists a compact set $K\subseteq A\cap V_j$ such that</p>
+<p>$$<br>\nu_j((A\cap V_j)\setminus K)&lt;\varepsilon/2.<br>$$</p>
+<p>Because $K\subseteq V_j$, we have</p>
+<p>$$<br>\pi(K)=\nu_j(K).<br>$$</p>
+<p>Also,</p>
+<p>$$<br>A\setminus K=((A\cap V_j)\setminus K)\cup (A\setminus V_j),<br>$$</p>
+<p>and these two sets are disjoint. Hence, by additivity,</p>
+<p>$$<br>\pi(A\setminus K)=\pi((A\cap V_j)\setminus K)+\pi(A\setminus V_j).<br>$$</p>
+<p>Now</p>
+<p>$$<br>\pi((A\cap V_j)\setminus K)=\nu_j((A\cap V_j)\setminus K)&lt;\varepsilon/2,<br>$$</p>
+<p>and</p>
+<p>$$<br>\pi(A\setminus V_j)=\pi(A)-\pi(A\cap V_j)=\pi(A)-\nu_j(A\cap V_j)&lt;\varepsilon/2.<br>$$</p>
+<p>Therefore</p>
+<p>$$<br>\pi(A\setminus K)&lt;\varepsilon.<br>$$</p>
+<p>So $\pi$ is tight.</p>
+<p>Thus $\pi$ is a tight, locally finite additive function on the Borel subsets of the metrizable space $X$. Hence $\pi$ is a Radon measure.</p>
+<p>Moreover, as already shown above, if $A$ is a Borel subset of $U_i$, then for every $j\ge i$,</p>
+<p>$$<br>\nu_j(A)=\mu_i(A),<br>$$</p>
+<p>so</p>
+<p>$$<br>\pi(A)=\mu_i(A).<br>$$</p>
+<p>Thus $\pi$ has the required restriction property.</p>
+<p>It remains to prove uniqueness. Let $\widetilde{\pi}$ be another Radon measure on $X$ such that</p>
+<p>$$<br>\widetilde{\pi}(A)=\mu_i(A)<br>$$</p>
+<p>for every Borel set $A\subseteq U_i$ and every $i$. Then for each $j$, the restrictions of $\widetilde{\pi}$ and $\nu_j$ to every $U_i$, $1\le i\le j$, coincide. Since $V_j=\bigcup_{i=1}^j U_i$, it follows that</p>
+<p>$$<br>\widetilde{\pi}(B)=\nu_j(B)<br>$$</p>
+<p>for every Borel set $B\subseteq V_j$.</p>
+<p>Now let $A\subseteq X$ be Borel. Since</p>
+<p>$$<br>A\cap V_1\subseteq A\cap V_2\subseteq \cdots<br>\quad\text{and}\quad<br>\bigcup_{j=1}^\infty (A\cap V_j)=A,<br>$$</p>
+<p>and since $\widetilde{\pi}$ is a measure, continuity from below gives</p>
+<p>$$<br>\widetilde{\pi}(A)=\lim_{j\to\infty}\widetilde{\pi}(A\cap V_j).<br>$$</p>
+<p>But for each $j$,</p>
+<p>$$<br>\widetilde{\pi}(A\cap V_j)=\nu_j(A\cap V_j).<br>$$</p>
+<p>Therefore</p>
+<p>$$<br>\widetilde{\pi}(A)=\lim_{j\to\infty}\nu_j(A\cap V_j)=\pi(A).<br>$$</p>
+<p>So $\widetilde{\pi}=\pi$, and the proof is complete. $\square$</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Chapter 16 in the following reference:</p>
 <p>Garling, David JH. <em>Analysis on Polish spaces and an introduction to optimal transportation</em>. Vol. 89. Cambridge University Press, 2018.</p>
 <blockquote>
