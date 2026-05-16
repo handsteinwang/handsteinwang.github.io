@@ -67,7 +67,7 @@
 <p>We use $\mathscr P_V$ and $\mathscr P_p$ denote the set of Borel probability measures $\mu$ on $\mathbb{R}^d$ satisfying</p>
 <p>$$<br>\Vert\mu\Vert_{\mathscr P_V} =<br>\int_{\mathbb{R}^d}(1+V(x))\ d\mu &lt; \infty<br>\qquad<br>\text{or}<br>\qquad<br>\Vert\mu\Vert_{\mathscr P_p}<br>=<br>\int_{\mathbb{R}^d}|x|^p\ d\mu(x) &lt; \infty,<br>$$</p>
 <p>respectively. Thanks to $(3)$, we have $\mathscr P_p \subset \mathscr P_V$ for any $p \geq q^\star=\frac{q}{q-1}$.</p>
-<h2 id="Well-posedness-of-the-Mean-Field-PDE"><a href="#Well-posedness-of-the-Mean-Field-PDE" class="headerlink" title="Well-posedness of the Mean Field PDE"></a>Well-posedness of the Mean Field PDE</h2><p>Observe that (2) is a nonlinear transport equation of the form $\partial_t \rho + \nabla \cdot (\rho U[\rho]) = 0$, where $U[\rho]$ is the vector field</p>
+<h2 id="Well-posedness-of-the-PDE-and-the-Particle-System"><a href="#Well-posedness-of-the-PDE-and-the-Particle-System" class="headerlink" title="Well-posedness of the PDE and the Particle System"></a>Well-posedness of the PDE and the Particle System</h2><p>Observe that (2) is a nonlinear transport equation of the form $\partial_t \rho + \nabla \cdot (\rho U[\rho]) = 0$, where $U[\rho]$ is the vector field</p>
 <p>$$<br>U[\rho] (x)=-(\nabla K * \rho)(x)-(K * (\nabla V \rho))(x), \qquad x \in \mathbb R^d. \tag{4}<br>$$</p>
 <p>Given a measure $\rho \in \mathscr P_V$, $U[\rho]$ is well-defined. In fact, due to Assumption 2 $(A2)$, $U[\rho] (x)$ is Lipschitz continuous and bounded over $\mathbb R^d$:</p>
 <p>$$<br>\begin{aligned}<br>|U[\rho] (x)| &amp;\leq \Vert\nabla K\Vert_{\infty}+\Vert K\Vert_{\infty} C \Vert\rho\Vert_{\mathcal P_V}, \\\<br>|\nabla U[\rho] (x)| &amp;\leq \Vert D^2 K\Vert_{\infty}+\Vert DK\Vert_{\infty} C \Vert\rho\Vert_{\mathcal P_V}.<br>\end{aligned} \tag{5}<br>$$</p>
@@ -76,22 +76,13 @@
 <p>and</p>
 <p>$$<br>\int_{0}^{\infty} \int_{\mathbb R^d} \left(\partial_t \phi(t,x)+\nabla \phi(t,x) \cdot U[\rho_t]\   (x)\right)\rho_t(dx)\ dt+\int_{\mathbb R^d}\phi(0,x)\nu(dx)=0 \tag{7}<br>$$</p>
 <p>holds for all $\phi \in C_0^\infty([0,\infty)\times \mathbb R^d)$. Recall that $\rho_t=\rho(t,\cdot)$.</p>
-<h2 id="Well-posedness-of-the-PDE-and-the-Particle-System"><a href="#Well-posedness-of-the-PDE-and-the-Particle-System" class="headerlink" title="Well-posedness of the PDE and the Particle System"></a>Well-posedness of the PDE and the Particle System</h2><p>Observe that (2) is a nonlinear transport equation of the form $\partial_t \rho + \nabla \cdot (\rho U[\rho]) = 0$, where $U[\rho]$ is the vector field</p>
-<p>$$<br>U[\rho] (x)=-(\nabla K * \rho)(x)-(K * (\nabla V \rho))(x), \qquad x \in \mathbb R^d. \tag{4}<br>$$</p>
-<p>Given a measure $\rho \in \mathscr P_V$, $U[\rho]$ is well-defined. In fact, due to Assumption 2 $(A2)$, $U[\rho] (x)$ is Lipschitz continuous and bounded over $\mathbb R^d$:</p>
-<p>$$<br>\begin{aligned}<br>|U[\rho] (x)| &amp;\leq \Vert\nabla K\Vert_{\infty}+\Vert K\Vert_{\infty} C \Vert\rho\Vert_{\mathcal P_V}, \\\<br>|\nabla U[\rho] (x)| &amp;\leq \Vert D^2 K\Vert_{\infty}+\Vert DK\Vert_{\infty} C \Vert\rho\Vert_{\mathcal P_V}.<br>\end{aligned} \tag{5}<br>$$</p>
-<p>We say that a measure-valued function $\rho \in C([0,\infty);\mathscr P)$ (where $\mathscr P$ is given the topology of weak convergence) is a weak solution to (2) with initial condition $\rho_0=\nu \in \mathscr P_V$ if</p>
-<p>$$<br>\sup_{t \in [0,T]} \Vert\rho_t\Vert_{\mathscr P_V} &lt; \infty, \qquad \forall\  T &gt; 0 \tag{6}<br>$$</p>
-<p>and</p>
-<p>$$<br>\int_{0}^{\infty} \int_{\mathbb R^d} \left(\partial_t \phi(t,x)+\nabla \phi(t,x) \cdot U[\rho_t]   (x)\right)\rho_t(dx)\ dt+\int_{\mathbb R^d}\phi(0,x)\nu(dx)=0 \tag{7}<br>$$</p>
-<p>holds for all $\phi \in C_0^\infty([0,\infty)\times \mathbb R^d)$. Recall that $\rho_t=\rho(t,\cdot)$.</p>
-<h2 id="Well-posedness-of-the-PDE-and-the-Particle-System-1"><a href="#Well-posedness-of-the-PDE-and-the-Particle-System-1" class="headerlink" title="Well-posedness of the PDE and the Particle System"></a>Well-posedness of the PDE and the Particle System</h2><p><strong>Theorem 1.</strong> Let $V$ satisfy Assumption 2. For any $\nu \in \mathscr P_V$, there is a unique $\rho \in C([0,\infty);\mathscr P_V)$ which is a weak solution to (2) with initial condition $\rho_0=\nu$. Moreover there is $C_1&gt;0$ (depending on $K$ and $V$) such that</p>
+<h3 id="Well-posedness-of-the-Mean-Field-PDE"><a href="#Well-posedness-of-the-Mean-Field-PDE" class="headerlink" title="Well-posedness of the Mean Field PDE"></a>Well-posedness of the Mean Field PDE</h3><p><strong>Theorem 1.</strong> Let $V$ satisfy Assumption 2. For any $\nu \in \mathscr P_V$, there is a unique $\rho \in C([0,\infty);\mathscr P_V)$ which is a weak solution to (2) with initial condition $\rho_0=\nu$. Moreover there is $C_1&gt;0$ (depending on $K$ and $V$) such that</p>
 <p>$$<br>\Vert\rho_t\Vert_{\mathscr P_V} \leq e^{C_1 t}\Vert\nu\Vert_{\mathscr P_V}, \qquad t \geq 0. \tag{8}<br>$$</p>
 <p>If $\nu \in \mathscr P_p \cap \mathscr P_V$, then $\rho \in C([0,\infty);\mathscr P_p)$, as well, with $\Vert\rho_t\Vert_{\mathscr P_p} \leq e^{C_2 t}\Vert\nu\Vert_{\mathscr P_p}$.</p>
 <p>In order to prove Theorem 1, we introduce the mean field characteristic flow for the PDE (2).</p>
 <p><strong>Definition 1.</strong> Given a probability measure $\nu$, we say that the map</p>
 <p>$$<br>X(t,x,\nu):[0,\infty)\times \mathbb R^d \to \mathbb R^d<br>$$</p>
-<p>is a mean field characteristic flow associated to the particle system (\ref{interacting particle system}) or to the mean field PDE $(2)$ if $X$ is $C^1$ in time and solves the following problem</p>
+<p>is a mean field characteristic flow associated to the particle system (1) or to the mean field PDE $(2)$ if $X$ is $C^1$ in time and solves the following problem</p>
 <p>$$<br>\begin{aligned}<br>&amp;\partial_t X(t,x,\nu) = -(\nabla K * \mu_t)(X(t,x,\nu))-(K*(\nabla V\mu_t))(X(t,x,\nu)), \\\<br>&amp;\mu_t = X(t,\cdot,\nu)_\sharp\nu, \\\<br>&amp;X(0,x,\nu) = x.<br>\end{aligned} \tag{9}<br>$$</p>
 <p>We first prove in the theorem below that the mean field characteristic flow (9) is well-defined. To this end, define the set of functions</p>
 <p>$$<br>Y:=\left\{u \in C(\mathbb R^d;\mathbb R^d)\ \middle|\ \sup_{x\in\mathbb R^d}|u(x)-x|&lt;\infty\right\}, \tag{10}<br>$$</p>
