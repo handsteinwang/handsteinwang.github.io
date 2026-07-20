@@ -37,84 +37,8 @@
 </head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/hw.svg" alt="Handstein Wang" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/readinglist">Reading List</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://wangtuo2002.github.io/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags/">Tags</a></li><li class="is-active"><a href="#" aria-current="page">Gradient Flows</a></li></ul></nav></div></div><div class="card"><div class="card-image"><a class="image is-7by3" href="/2026/07/20/2026_pku_summer_school_1/"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/georiga_3.4ubmpc5e3c.webp" alt="Computational Gradient Flows and Optimal Transport Lecture 1"></a></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2026-07-19T16:00:00.000Z" title="2026/7/20 00:00:00">2026-07-20</time></span><span class="level-item"><a class="link-muted" href="/categories/Gradient-Flows/">Gradient Flows</a></span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2026/07/20/2026_pku_summer_school_1/">Computational Gradient Flows and Optimal Transport Lecture 1</a></p><div class="content"><blockquote>
 <p>PKU Summer School 2026</p>
 <p><em>Lecturer: Jia-jie Zhu</em></p>
-<p><em>Lecture Notes — July 20, 2026</em></p>
 </blockquote>
-<h2 id="Gradient-Flows-in-Euclidean-Space"><a href="#Gradient-Flows-in-Euclidean-Space" class="headerlink" title="Gradient Flows in Euclidean Space"></a>Gradient Flows in Euclidean Space</h2><p>Let $F:\mathbb{R}^d \to \mathbb{R}$ be differentiable. The <strong>gradient flow</strong> of $F$ is the ODE</p>
-<p>$$<br>\dot{x}(t) ;=; -\nabla F\bigl(x(t)\bigr)^{\top}, \qquad x \in \mathbb{R}^d .<br>$$</p>
-<p><strong>Example 1 (Quadratic potential).</strong><br>Let $F(x) = \tfrac12 \lVert x-m \rVert^2$. Then</p>
-<p>$$<br>\dot{x} = -(x-m),<br>$$</p>
-<p>whose solution is</p>
-<p>$$<br>x(t) = (1-e^{-t})\ m + e^{-t} x(0), \qquad t \ge 0 .<br>$$</p>
-<p>Consequently the energy decays exponentially:</p>
-<p>$$<br>\tfrac12\lVert x(t)-m \rVert^2 ;=; e^{-2t}\ \tfrac12 \lVert x(0)-m \rVert^2 .<br>$$</p>
-<p><strong>Example 2 (Double-well potential).</strong><br>Let $F(x) = \tfrac14 (x^2-1)^2$, so that $\nabla F(x) = x^3 - x$. The gradient flow reads</p>
-<p>$$<br>\dot{x}(t) = -\bigl(x^3(t) - x(t)\bigr) = -\ x(t)\bigl(x(t)-1\bigr)\bigl(x(t)+1\bigr),<br>$$</p>
-<p>with stable equilibria at $x = \pm 1$ and an unstable equilibrium at $x = 0$.</p>
-<hr>
-<h3 id="Convexity-in-mathbb-R-d-lVert-cdot-rVert"><a href="#Convexity-in-mathbb-R-d-lVert-cdot-rVert" class="headerlink" title="Convexity in $(\mathbb{R}^d, \lVert\cdot\rVert)$"></a>Convexity in $(\mathbb{R}^d, \lVert\cdot\rVert)$</h3><p><strong>Definition 3 ($\lambda$-convexity).</strong><br>A function $F: \mathbb{R}^d \to \mathbb{R}$ is <strong>$\lambda$-convex</strong> if for all $t \in [0,1]$ and all $x,y \in \mathbb{R}^d$,</p>
-<p>$$<br>F\bigl((1-t)x + ty\bigr) ;\le; (1-t) F(x) + t\ F(y) ;-; \frac{\lambda}{2}\ t(1-t)\ \lVert x-y \rVert^2 .<br>$$</p>
-<p>The parameter $\lambda$ classifies the convexity:</p>
-<table>
-<thead>
-<tr>
-<th>Condition</th>
-<th>Name</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$\lambda = 0$</td>
-<td>convex</td>
-</tr>
-<tr>
-<td>$\lambda = 0$ with strict inequality</td>
-<td>strictly convex</td>
-</tr>
-<tr>
-<td>$\lambda &gt; 0$</td>
-<td>strongly convex</td>
-</tr>
-<tr>
-<td>$\lambda &lt; 0$</td>
-<td>semi-convex</td>
-</tr>
-</tbody></table>
-<p><strong>Differentiable characterizations.</strong></p>
-<p>If $F$ is differentiable, then $F$ is $\lambda$-convex if and only if</p>
-<p>$$<br>F(y) ;\ge; F(x) + \langle \nabla F(x),\ y-x \rangle + \frac{\lambda}{2}\lVert y-x \rVert^2 \qquad \forall\ x,y \in \mathbb{R}^d .<br>$$</p>
-<p>If $F$ is twice differentiable, then $F$ is $\lambda$-convex if and only if</p>
-<p>$$<br>\nabla^2 F(x) ;\succeq; \lambda I \qquad \forall\ x \in \mathbb{R}^d .<br>$$</p>
-<hr>
-<h3 id="Gradient-Domination-Polyak–Lojasiewicz"><a href="#Gradient-Domination-Polyak–Lojasiewicz" class="headerlink" title="Gradient Domination (Polyak–Łojasiewicz)"></a>Gradient Domination (Polyak–Łojasiewicz)</h3><p><strong>Theorem 4 (Gradient domination / PL inequality).</strong><br>If $F$ is $\lambda$-convex with $\lambda &gt; 0$, then $F$ satisfies the gradient domination inequality</p>
-<p>$$<br>\frac12 \lVert \nabla F(x) \rVert^2 ;\ge; \lambda\Bigl( F(x) - \inf_{x\in\mathbb{R}^d} F \Bigr) \qquad \forall\ x \in \mathbb{R}^d .<br>$$</p>
-<p><em>Proof.</em> By $\lambda$-convexity, for all $x,y \in \mathbb{R}^d$,</p>
-<p>$$<br>\begin{aligned}<br>F(y) &amp;\ge F(x) + \langle \nabla F(x),\ y-x \rangle + \frac{\lambda}{2}\lVert y-x \rVert^2 \\\<br>&amp;= F(x) + \frac{\lambda}{2}\Bigl\lVert y - x + \tfrac{1}{\lambda}\nabla F(x)\Bigr\rVert^2 - \frac{1}{2\lambda}\lVert \nabla F(x) \rVert^2 \\\<br>&amp;\ge F(x) - \frac{1}{2\lambda}\lVert \nabla F(x) \rVert^2 .<br>\end{aligned}<br>$$</p>
-<p>Taking the infimum over $y$ gives</p>
-<p>$$<br>\frac{1}{2\lambda}\lVert \nabla F(x) \rVert^2 ;\ge; F(x) - \inf F . \qquad \blacksquare<br>$$</p>
-<p><strong>Fact 5 (Exponential decay of the energy).</strong><br>Gradient domination of $F$ implies, along any solution $x(t)$ of $\dot{x}(t) = -\nabla F(x)$,</p>
-<p>$$<br>F\bigl(x(t)\bigr) ;\le; e^{-2\lambda t} F\bigl(x(0)\bigr) + \bigl(1 - e^{-2\lambda t}\bigr)\inf F .<br>$$</p>
-<p><em>Proof.</em> Differentiating along the trajectory,</p>
-<p>$$<br>\frac{d}{dt} F\bigl(x(t)\bigr) = \langle \nabla F(x),\ \dot{x} \rangle = -\lVert \nabla F(x) \rVert^2 ;\le; -2\lambda\bigl(F(x) - \inf F\bigr).<br>$$</p>
-<p>Grönwall’s inequality then yields</p>
-<p>$$<br>F\bigl(x(t)\bigr) \le e^{-2\lambda t} F\bigl(x(0)\bigr) + \bigl(1-e^{-2\lambda t}\bigr)\inf F . \qquad \blacksquare<br>$$</p>
-<p><strong>Example 6 (Cubic ODE).</strong><br>Consider the ODE $\dot{x} = -x - x^3$, which is the gradient flow of</p>
-<p>$$<br>F(x) = \tfrac12 x^2 + \tfrac14 x^4 + \mathrm{const}.<br>$$</p>
-<p>Since $\nabla^2 F(x) = 1 + 3x^2 \ge 1$, the function $F$ is $1$-strongly convex, and therefore $F(x(t))$ decays exponentially with rate $2\lambda = 2$ along the ODE trajectory.</p>
-<hr>
-<h3 id="Evolutionary-Variational-Inequality-EVI"><a href="#Evolutionary-Variational-Inequality-EVI" class="headerlink" title="Evolutionary Variational Inequality (EVI)"></a>Evolutionary Variational Inequality (EVI)</h3><p>Consider the squared distance to a reference point $m \in \mathbb{R}^d$:</p>
-<p>$$<br>\begin{aligned}<br>\frac{d}{dt}\Bigl(\tfrac12\lVert x-m \rVert^2\Bigr)<br>&amp;= \langle x-m,\ \dot{x} \rangle = -\langle x-m,\ \nabla F(x) \rangle \\\<br>&amp;\le F(m) - F(x) - \frac{\lambda}{2}\lVert \nabla F(x) \rVert^2 .<br>\end{aligned}<br>\tag{$*$}<br>$$</p>
-<p><strong>Special case.</strong> Suppose $m \in \arg\min F$. Then $(*)$ reduces to</p>
-<p>$$<br>\frac{d}{dt}\Bigl(\tfrac12\lVert x-m \rVert^2\Bigr) ;\le; -\frac{\lambda}{2}\lVert x-m \rVert^2,<br>$$</p>
-<p>hence</p>
-<p>$$<br>\tfrac12\lVert x(t)-m \rVert^2 ;\le; e^{-\lambda t}\Bigl(\tfrac12\lVert x(0)-m \rVert^2\Bigr),<br>$$</p>
-<p>i.e. $\tfrac12\lVert \cdot - m \rVert^2$ is an exponentially decaying Lyapunov function.</p>
-<p><strong>General case.</strong> Applying Grönwall’s inequality to $(*)$, for any $m \in \mathbb{R}^d$ and $\lambda \in \mathbb{R}$,</p>
-<p>$$<br>\begin{aligned}<br>\tfrac12\lVert x(t)-m \rVert^2<br>&amp;\le \frac{e^{-\lambda t}}{2}\lVert x_0 - m \rVert^2 + \int_0^t e^{-\lambda(t-s)}\bigl(F(m) - F(x(s))\bigr)\ ds \\\<br>&amp;\le \frac{e^{-\lambda t}}{2}\lVert x_0 - m \rVert^2 + M_\lambda(t)\ \bigl(F(m) - F(x(t))\bigr),<br>\end{aligned}<br>$$</p>
-<p>where</p>
-<p>$$<br>M_\lambda(t) ;=; \int_0^t e^{-\lambda(t-s)}\ ds ;=;<br>\begin{cases}<br>\dfrac{1 - e^{-\lambda t}}{\lambda}, &amp; \lambda \neq 0, \\\<br>t, &amp; \lambda = 0 .<br>\end{cases}<br>$$</p>
-<p>This is the <strong>$\lambda$-evolutionary variational inequality</strong> $(\mathrm{EVI}_\lambda)$.</p>
-<p><strong>Corollary 7 (Displacement bound from the initial point).</strong><br>Picking $m = x_0$ in $(\mathrm{EVI}_\lambda)$ gives</p>
-<p>$$<br>\tfrac12\lVert x(t) - x_0 \rVert^2 ;\le; M_\lambda(t)\ \bigl(F(x_0) - F(x(t))\bigr).<br>$$</p>
-</div></article></div><div class="card"><div class="card-image"><a class="image is-7by3" href="/2026/05/15/SVGD_PDE/"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/georgia_2.pfyr1tfna.webp" alt="Well-posedness of the Mean Field PDE and Particle System for Stein Variational Gradient Descent"></a></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2026-05-14T16:00:00.000Z" title="2026/5/15 00:00:00">2026-05-15</time></span><span class="level-item"><a class="link-muted" href="/categories/Optimization-over-the-Space-of-Probability-Measures/">Optimization over the Space of Probability Measures</a></span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2026/05/15/SVGD_PDE/">Well-posedness of the Mean Field PDE and Particle System for Stein Variational Gradient Descent</a></p><div class="content"><p>We consider the following interacting particle system in $\mathbb{R}^d$:</p>
+<h2 id="Gradient-Flows-in-Euclidean-Space"><a href="#Gradient-Flows-in-Euclidean-Space" class="headerlink" title="Gradient Flows in Euclidean Space"></a>Gradient Flows in Euclidean Space</h2></div><a class="article-more button is-small is-size-7" href="/2026/07/20/2026_pku_summer_school_1/#more">Read more</a></article></div><div class="card"><div class="card-image"><a class="image is-7by3" href="/2026/05/15/SVGD_PDE/"><img class="fill" src="https://github.com/handsteinwang/picx-images-hosting/raw/master/georgia_2.pfyr1tfna.webp" alt="Well-posedness of the Mean Field PDE and Particle System for Stein Variational Gradient Descent"></a></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2026-05-14T16:00:00.000Z" title="2026/5/15 00:00:00">2026-05-15</time></span><span class="level-item"><a class="link-muted" href="/categories/Optimization-over-the-Space-of-Probability-Measures/">Optimization over the Space of Probability Measures</a></span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2026/05/15/SVGD_PDE/">Well-posedness of the Mean Field PDE and Particle System for Stein Variational Gradient Descent</a></p><div class="content"><p>We consider the following interacting particle system in $\mathbb{R}^d$:</p>
 <p>$$<br>\begin{aligned}<br>\dot{x}_i(t) &amp;= -\frac{1}{N}\sum _{j=1}^{N}\nabla K(x_i(t)-x_j(t)) -\frac{1}{N} \sum _{j=1} ^{N}K\big(x_i(t)-x_j(t)\bigr)\nabla V (x_j(t)), \\\<br>x_i(0) &amp;= x_i ^0 \in \mathbb R^d, \qquad i=1,\cdots,N.<br>\end{aligned} \tag{1}<br>$$</p>
 <p>We refer to each of the $N$ functions $x_i(\cdot) \in \mathbb{R}^d$ as a particle. The function $K : \mathbb{R}^d \mapsto \mathbb{R}$ is a smooth, symmetric, and positive definite kernel. The function $V : \mathbb{R}^d \to \mathbb{R}$ is a smooth potential such that $e^{-V(x)}$ is integrable. More specific assumptions about $K$ and $V$ are given below.</p>
 <p>We are interested in the macroscopic behavior of the particle system $(1)$ as $N \to \infty$ in the framework of mean field limit. Formally this mean field limit is described by the following non-local, nonlinear partial differential equation (PDE):<br>$$<br>\begin{aligned}<br>&amp;\partial_t \rho = \nabla \cdot \left(\rho\left(K \ast (\nabla \rho+\nabla V\rho)\right)\right), \\\<br>&amp;\rho(0,\cdot) = \rho_0(\cdot).<br>\end{aligned} \tag{2}<br>$$</p>
